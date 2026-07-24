@@ -1,0 +1,49 @@
+.logout-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  top: -20px;
+}
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 130px;
+  height: 44px;
+  border: none;
+  border-radius: 30px;
+  background: #ff4141;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0 18px;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.logout-btn:hover {
+  background: #e53935;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 65, 65, 0.4);
+}
+
+.logout-btn:active {
+  transform: scale(0.96);
+}
+
+.logout-sign {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.logout-text {
+  color: white;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 700;
+}

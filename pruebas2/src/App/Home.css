@@ -1,0 +1,162 @@
+.App {
+  width: 100%;
+}
+
+.monitored-section {
+  background: #ffffff;
+  padding: 48px 0 60px;
+}
+
+.containerHome {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: #111111;
+  margin-bottom: 24px;
+  text-align: left;
+  animation: aparece 1s ease forwards;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 260px);
+  gap: 50px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.monitor-card {
+  background: #f3f5f8;
+  padding: 20px 18px;
+  min-height: 240px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.monitor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.icon-wrap {
+  color: #63a9d8;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: center;
+  animation: aparecerArriba 1s ease forwards;
+}
+
+.monitor-card h3 {
+  font-size: 1.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #111111;
+  margin: 0 0 12px;
+  text-align: center;
+  animation: aparecerArriba 1s ease forwards;
+}
+
+.monitor-card p {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #333333;
+  margin-bottom: 18px;
+  flex-grow: 1;
+  text-align: center;
+  animation: aparecerArriba 1s ease forwards;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #63a9d8;
+  font-weight: 700;
+  font-size: 1.2rem;
+  position: relative;
+  width: fit-content;
+  animation: aparece 1.2s ease forwards;
+}
+
+.card-link:hover {
+  color: #2f7fb6;
+}
+
+.card-link::before {
+  content: '';
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #2f7fb6;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.card-link:hover::before {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+@media (max-width: 1200px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 260px);
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+
+  .monitor-card {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .monitor-card h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@keyframes aparecerArriba {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aparece {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
