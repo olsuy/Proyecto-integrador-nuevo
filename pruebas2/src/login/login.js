@@ -35,7 +35,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const respuesta = await axios.post('http://127.0.0.1:5000/api/login', {
+      const respuesta = await axios.post('proyecto-integrador-nuevo-production.up.railway.app/api/login', {
         email,
         password
       });
