@@ -19,6 +19,14 @@ const db = mysql.createPool({
   port: Number(process.env.DB_PORT) || 3306
 });
 
+db.query('SHOW TABLES', (err, results) => {
+  if (err) {
+    console.error('Error DB:', err);
+  } else {
+    console.log(results);
+  }
+});
+
 app.get("/", (req, res) => {
   console.log("Entró a la raíz");
   res.status(200).send("Backend funcionando");
