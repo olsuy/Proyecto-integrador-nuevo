@@ -16,7 +16,12 @@ const db = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: Number(process.env.DB_PORT) || 3306
+  port: Number(process.env.DB_PORT) || 3306,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0
 });
 
 (async () => {
@@ -38,22 +43,22 @@ app.get("/health", (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
+  const start = Date.now();
   const { email, password } = req.body;
-  
-  
 
   try {
-    const [rows] = await db.query(
-      "SELECT * FROM usuarios WHERE correo = ? AND password_hash = ? AND estado = 'activo'",
+    const qStart = Date.now();
+
+    const [rows] = await db.execute(
+      "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, correo, username, id_rol, estado FROM usuarios WHERE correo = ? AND password_hash = ? AND estado = 'activo'",
       [email, password]
     );
 
+    console.log("Tiempo query:", Date.now() - qStart, "ms");
+    console.log("Tiempo total login:", Date.now() - start, "ms");
 
     if (rows.length > 0) {
-      const [rows] = await db.query(
-  "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, correo, username, id_rol, estado FROM usuarios WHERE correo = ? AND password_hash = ? AND estado = 'activo'",
-  [email, password]
-);
+      res.json({ success: true, usuario: rows[0] });
     } else {
       res.json({ success: false, message: "Incorrect email or Password" });
     }
