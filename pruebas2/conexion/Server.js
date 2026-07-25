@@ -20,7 +20,13 @@ const db = mysql.createPool({
 });
 
 app.get("/", (req, res) => {
-  res.send("Backend funcionando");
+  console.log("Entró a la raíz");
+  res.status(200).send("Backend funcionando");
+});
+
+app.get("/health", (req, res) => {
+  console.log("Entró a /health");
+  res.status(200).send("ok");
 });
 
 app.post("/api/login", async (req, res) => {
