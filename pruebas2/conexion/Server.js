@@ -50,7 +50,10 @@ app.post("/api/login", async (req, res) => {
 
 
     if (rows.length > 0) {
-      res.json({ success: true, usuario: rows[0] });
+      const [rows] = await db.query(
+  "SELECT id_usuario, nombre, apellido_paterno, apellido_materno, correo, username, id_rol, estado FROM usuarios WHERE correo = ? AND password_hash = ? AND estado = 'activo'",
+  [email, password]
+);
     } else {
       res.json({ success: false, message: "Incorrect email or Password" });
     }
