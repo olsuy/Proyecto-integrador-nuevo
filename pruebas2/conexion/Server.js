@@ -39,6 +39,7 @@ app.get("/health", (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
+  res.status(200).send("GOOOOOODDDD")
   
 
   try {
