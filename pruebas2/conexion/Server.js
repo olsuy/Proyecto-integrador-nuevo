@@ -73,7 +73,7 @@ app.get('/api/pingdom-speed', async (req, res) => {
   try {
     // IMPORTANTE: Para obtener la velocidad, Pingdom necesita saber el ID exacto de tu prueba.
     // Cambia "TU_ID_AQUI" por el número de ID que aparece en la URL cuando ves el reporte en Pingdom.
-    const checkId = 'TU_ID_AQUI'; 
+    const checkId = '14558878'; 
     const url = `https://api.pingdom.com/api/3.1/summary.performance/${checkId}`;
     
     const opciones = {
