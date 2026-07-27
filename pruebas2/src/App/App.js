@@ -5,7 +5,7 @@ import Elevators from './Elevators/Elevators';
 import Monitoring from './Monitoring/Monitoring';
 import ProtectedRoute from './ProtectedRute';
 import Support from './Support/Support';
-
+import System from './System/System';
 function App() {
   const auth = localStorage.getItem("auth") === "true";
 
@@ -49,6 +49,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Support />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/system"
+          element={
+            <ProtectedRoute>
+              <System />
             </ProtectedRoute>
           }
         />

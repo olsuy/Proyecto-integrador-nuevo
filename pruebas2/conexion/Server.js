@@ -42,6 +42,32 @@ app.get("/health", (req, res) => {
   res.status(200).send("ok");
 });
 
+
+// CONFIGURACION DE API PARA PINGDOM
+    app.get('/api/pingdom-status', async (req, res) => {
+  try {
+    const url = 'https://api.pingdom.com/api/3.1/checks';
+    
+    // Aquí configuramos el método y el token, igual que en Postman
+    const opciones = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.PINGDOM_API_TOKEN}`
+      }
+    };
+
+    const respuesta = await fetch(url, opciones);
+    const datos = await respuesta.json();
+    
+    // Le enviamos la respuesta de Pingdom a tu frontend de React
+    res.json(datos);
+    
+  } catch (error) {
+    console.error('Error obteniendo datos de Pingdom:', error);
+    res.status(500).json({ error: 'Error interno conectando con Pingdom' });
+  }
+});
+
 app.post("/api/login", async (req, res) => {
   const start = Date.now();
   const { email, password } = req.body;
