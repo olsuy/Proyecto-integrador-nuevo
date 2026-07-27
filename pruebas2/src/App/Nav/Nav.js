@@ -3,6 +3,7 @@ import logo from "../Nav/logo.jpeg";
 import { NavLink } from "react-router-dom";
 import Logout from "../Logout/Logout";
 
+
 function Nav() {
   return (
     <nav className="navbar">
