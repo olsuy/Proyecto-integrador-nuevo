@@ -1,99 +1,91 @@
-/* Contenedor principal respetando el tema oscuro */
-.system-container {
-  padding: 4rem 10%; /* Márgenes laterales para alinear con el resto de la página */
-  background-color: #050a15; /* Fondo oscuro de la interfaz */
-  color: #ffffff;
-  min-height: calc(100vh - 80px); /* Ajusta el 80px según el alto de tu Nav */
-  font-family: 'Inter', system-ui, sans-serif;
-}
-
-/* Encabezado */
-.system-header {
-  margin-bottom: 3.5rem;
-}
-
-.system-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -1px;
-}
-
-.system-title span {
-  color: #00b4d8; /* Color cian extraído del texto de la página principal */
-}
-
-.system-subtitle {
-  color: #a0aec0;
-  font-size: 1.1rem;
+/* Información de última actualización */
+.system-update-time {
+  color: #00b4d8;
+  font-size: 0.85rem;
   margin-top: 0.5rem;
-  font-weight: 300;
+  font-weight: 500;
 }
 
-/* Cuadrícula para las tarjetas */
-.system-grid {
+/* Sección de Page Speed */
+.speed-section {
+  margin-top: 4rem;
+  border-top: 1px solid #1e293b;
+  padding-top: 3rem;
+}
+
+.speed-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.speed-title span {
+  color: #00b4d8;
+}
+
+/* Cuadrícula de velocidad (4 columnas) */
+.speed-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
 }
 
-/* Tarjeta individual de estado */
-.status-card {
-  background-color: #0a1122; /* Un tono ligeramente más claro que el fondo */
+/* Tarjeta individual de métricas de velocidad */
+.speed-card {
+  background-color: #0a1122;
   border: 1px solid #1e293b;
   border-radius: 12px;
-  padding: 1.5rem 2rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-.status-card:hover {
+.speed-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 180, 216, 0.1);
-  border-color: #00b4d8; /* Brillo cian en el borde al pasar el cursor */
+  border-color: #00b4d8;
 }
 
-.status-info h3 {
-  margin: 0 0 0.4rem 0;
-  font-size: 1.3rem;
+.speed-label {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.speed-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.speed-unit {
+  font-size: 1rem;
+  color: #64748b;
   font-weight: 600;
 }
 
-.status-time {
-  font-size: 0.95rem;
-  color: #a0aec0;
+/* Estilos específicos para la calificación (Grade) */
+.grade {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Etiqueta indicadora (Badge) */
-.status-badge {
-  padding: 0.5rem 1.2rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+.grade-letter {
+  color: #10b981; /* Verde característico de la calificación 'A' */
+  font-size: 3rem;
 }
 
-/* Estado: En línea */
-.status-up {
-  background-color: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-/* Estado: Caído */
-.status-down {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-/* Mensajes genéricos */
-.system-loading, .system-error {
-  text-align: center;
-  color: #a0aec0;
+.grade-score {
   font-size: 1.2rem;
-  padding: 4rem;
+  color: #94a3b8;
 }
