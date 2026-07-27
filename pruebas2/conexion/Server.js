@@ -68,6 +68,33 @@ app.get("/health", (req, res) => {
   }
 });
 
+// Ruta para obtener la velocidad de la página (Page Speed)
+app.get('/api/pingdom-speed', async (req, res) => {
+  try {
+    // IMPORTANTE: Para obtener la velocidad, Pingdom necesita saber el ID exacto de tu prueba.
+    // Cambia "TU_ID_AQUI" por el número de ID que aparece en la URL cuando ves el reporte en Pingdom.
+    const checkId = 'TU_ID_AQUI'; 
+    const url = `https://api.pingdom.com/api/3.1/summary.performance/${checkId}`;
+    
+    const opciones = {
+      method: 'GET',
+      headers: {
+        // Reutilizamos el mismo token que ya configuraste antes en Railway
+        'Authorization': `Bearer ${process.env.PINGDOM_API_TOKEN}`
+      }
+    };
+
+    const respuesta = await fetch(url, opciones);
+    const datos = await respuesta.json();
+    
+    res.json(datos);
+    
+  } catch (error) {
+    console.error('Error obteniendo datos de velocidad de Pingdom:', error);
+    res.status(500).json({ error: 'Error interno conectando con Pingdom' });
+  }
+});
+
 app.post("/api/login", async (req, res) => {
   const start = Date.now();
   const { email, password } = req.body;
