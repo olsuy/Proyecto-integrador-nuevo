@@ -1,20 +1,111 @@
-/* Información de última actualización */
-.system-update-time {
-  color: #00b4d8;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-  font-weight: 500;
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+.system-container {
+  background-color: #050a15; /* Fondo oscuro consistente con tu tema */
+  color: #ffffff;
+  min-height: calc(100vh - 80px); /* Ocupa el resto de la pantalla debajo del Nav */
+  padding: 3rem 10%;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
 }
 
-/* Sección de Page Speed */
+/* =========================================
+   ENCABEZADO
+========================================= */
+.system-header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 1.5rem;
+}
+
+.system-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  color: #ffffff;
+}
+
+.system-title span {
+  color: #00b4d8; /* Color cian de acento */
+}
+
+.system-subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+.system-update-time {
+  color: #00b4d8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* =========================================
+   SECCIÓN 1: ESTADO DEL SERVIDOR
+========================================= */
+.system-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.status-card {
+  background-color: #0a1122; /* Fondo de la tarjeta */
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.status-card:hover {
+  transform: translateY(-3px);
+  border-color: #00b4d8;
+}
+
+.status-info h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Etiquetas ONLINE / OFFLINE */
+.status-badge {
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.status-up {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981; /* Verde esmeralda */
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-down {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444; /* Rojo */
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* =========================================
+   SECCIÓN 2: RENDIMIENTO (PAGE SPEED)
+========================================= */
 .speed-section {
-  margin-top: 4rem;
-  border-top: 1px solid #1e293b;
-  padding-top: 3rem;
+  padding-top: 1rem;
 }
 
 .speed-title {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
   color: #ffffff;
@@ -24,68 +115,77 @@
   color: #00b4d8;
 }
 
-/* Cuadrícula de velocidad (4 columnas) */
 .speed-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
 }
 
-/* Tarjeta individual de métricas de velocidad */
 .speed-card {
   background-color: #0a1122;
   border: 1px solid #1e293b;
   border-radius: 12px;
-  padding: 2rem 1.5rem;
-  text-align: center;
+  padding: 2.5rem 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .speed-card:hover {
   transform: translateY(-3px);
   border-color: #00b4d8;
+  box-shadow: 0 10px 20px rgba(0, 180, 216, 0.05);
 }
 
 .speed-label {
-  color: #a0aec0;
-  font-size: 0.9rem;
+  color: #94a3b8;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
 }
 
 .speed-value {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: #ffffff;
   display: flex;
   align-items: baseline;
-  gap: 0.3rem;
+  gap: 0.4rem;
 }
 
 .speed-unit {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #64748b;
   font-weight: 600;
 }
 
-/* Estilos específicos para la calificación (Grade) */
+/* Letra de calificación (Grade A) */
 .grade {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 0.5rem;
 }
 
 .grade-letter {
-  color: #10b981; /* Verde característico de la calificación 'A' */
-  font-size: 3rem;
+  color: #10b981; /* Verde */
+  font-size: 4rem;
+  line-height: 1;
 }
 
 .grade-score {
   font-size: 1.2rem;
   color: #94a3b8;
+}
+
+/* Mensajes de carga */
+.system-loading, .system-error {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1.2rem;
+  padding: 4rem;
 }
