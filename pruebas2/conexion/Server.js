@@ -32,6 +32,7 @@ const db = mysql.createPool({
     console.error('Error DB:', err);
   }
 })();
+
 app.get("/", (req, res) => {
   console.log("Entró a la raíz");
   res.status(200).send("Backend funcionando");
@@ -42,13 +43,11 @@ app.get("/health", (req, res) => {
   res.status(200).send("ok");
 });
 
-
-// CONFIGURACION DE API PARA PINGDOM
-    app.get('/api/pingdom-status', async (req, res) => {
+// CONFIGURACION DE API PARA PINGDOM - RUTAS DEL BACKEND
+app.get('/api/pingdom-status', async (req, res) => {
   try {
     const url = 'https://api.pingdom.com/api/3.1/checks';
     
-    // Aquí configuramos el método y el token, igual que en Postman
     const opciones = {
       method: 'GET',
       headers: {
@@ -71,15 +70,12 @@ app.get("/health", (req, res) => {
 // Ruta para obtener la velocidad de la página (Page Speed)
 app.get('/api/pingdom-speed', async (req, res) => {
   try {
-    // IMPORTANTE: Para obtener la velocidad, Pingdom necesita saber el ID exacto de tu prueba.
-    // Cambia "TU_ID_AQUI" por el número de ID que aparece en la URL cuando ves el reporte en Pingdom.
     const checkId = '14558878'; 
     const url = `https://api.pingdom.com/api/3.1/summary.performance/${checkId}`;
     
     const opciones = {
       method: 'GET',
       headers: {
-        // Reutilizamos el mismo token que ya configuraste antes en Railway
         'Authorization': `Bearer ${process.env.PINGDOM_API_TOKEN}`
       }
     };
