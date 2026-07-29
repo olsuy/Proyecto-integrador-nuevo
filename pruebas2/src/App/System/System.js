@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Nav from '../Nav/Nav';
 
 // Importamos los nuevos submódulos que acabas de crear
-import ServerStatus from './ServerStatus';
+import ServerStatus from './ServerStatus/ServerStatus';
 import PageSpeed from './PageSpeed/PageSpeed';
 import UptimeSummary from './Uptime/Uptime';
 
