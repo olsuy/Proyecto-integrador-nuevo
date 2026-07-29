@@ -20,7 +20,7 @@ function App() {
         <Route
           path="/home"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={[6, 7, 8, 9]} >
               <Home />
             </ProtectedRoute>
           }
@@ -56,7 +56,7 @@ function App() {
         <Route
           path="/system"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={[6]}>
               <System />
             </ProtectedRoute>
           }
