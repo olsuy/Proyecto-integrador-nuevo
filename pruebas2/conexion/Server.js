@@ -45,6 +45,23 @@ app.get("/health", (req, res) => {
 
 // CONFIGURACION DE API PARA PINGDOM - RUTAS DEL BACKEND
 
+// Ruta para obtener el estado general (Online/Offline)
+app.get('/api/pingdom-status', async (req, res) => {
+  try {
+    const url = 'https://api.pingdom.com/api/3.1/checks';
+    const opciones = {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${process.env.PINGDOM_API_TOKEN}` }
+    };
+    const respuesta = await fetch(url, opciones);
+    const datos = await respuesta.json();
+    res.json(datos);
+  } catch (error) {
+    console.error('Error obteniendo datos de Pingdom:', error);
+    res.status(500).json({ error: 'Error interno conectando con Pingdom' });
+  }
+});
+
 app.get('/api/pingdom-uptime', async (req, res) => {
   try {
     const checkId = '14558878'; 
