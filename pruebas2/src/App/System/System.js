@@ -6,6 +6,7 @@ const System = () => {
   // 1. Estados
   const [checks, setChecks] = useState([]);
   const [speedData, setSpeedData] = useState(null);
+  const [uptimeData, setUptimeData] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [ultimaActualizacion, setUltimaActualizacion] = useState("");
 
@@ -13,19 +14,18 @@ const System = () => {
   const obtenerDatos = async () => {
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
-      
-      // Petición del Status (Online/Offline)
+
       const respuestaStatus = await fetch(`${baseUrl}/api/pingdom-status`);
       const datosStatus = await respuestaStatus.json();
-      if (datosStatus && datosStatus.checks) {
-        setChecks(datosStatus.checks);
-      }
+      if(datosStatus && datosStatus.checks) setChecks(datosStatus.checks);
 
-      // Petición de Velocidad (Page Speed)
+     
+
+        // Petición de Velocidad (Page Speed)
+
       const respuestaSpeed = await fetch(`${baseUrl}/api/pingdom-speed`);
       const datosSpeed = await respuestaSpeed.json();
-      console.log("Datos de Pingdom Speed:", datosSpeed);
-      
+
       if (datosSpeed) {
         setSpeedData({
           grade: 'A', 
@@ -35,6 +35,22 @@ const System = () => {
           requests: datosSpeed.summary?.requests || 2
         });
       }
+
+      
+
+      setUptimeData({
+        downtime: "44 minutes",
+        outages: 2,
+        uptimePercent: "99.21%",
+        logs: [
+          { id: 1, status: 'up', from: '27/07/2026 07:22:19 AM', to: '28/07/2026 11:44:19 PM', duration: '2 days' },
+          { id: 2, status: 'unknown', from: '27/07/2026 07:19:19 AM', to: '27/07/2026 07:22:19 AM', duration: '3 minutes' },
+          { id: 3, status: 'up', from: '26/07/2026 11:09:19 PM', to: '27/07/2026 07:19:19 AM', duration: '8 hours' }
+        ]
+      });
+      
+      
+      
 
       const ahora = new Date();
       setUltimaActualizacion(ahora.toLocaleTimeString());
