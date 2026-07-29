@@ -44,25 +44,39 @@ app.get("/health", (req, res) => {
 });
 
 // CONFIGURACION DE API PARA PINGDOM - RUTAS DEL BACKEND
-app.get('/api/pingdom-status', async (req, res) => {
+
+app.get('/api/pingdom-uptime', async (req, res) => {
   try {
-    const url = 'https://api.pingdom.com/api/3.1/checks';
+    const checkId = '14558878'; 
+    // Obtenemos los datos de los últimos 7 días (ajustado en segundos Timestamp UNIX)
+    const toDate = Math.floor(Date.now() / 1000);
+    const fromDate = toDate - (7 * 24 * 60 * 60); 
+    
+    // API de resumen promedio (para % de uptime)
+    const urlSummary = `https://api.pingdom.com/api/3.1/summary.average/${checkId}?includeuptime=true&from=${fromDate}&to=${toDate}`;
+    // API de salidas y logs (para la tabla)
+    const urlOutage = `https://api.pingdom.com/api/3.1/summary.outage/${checkId}?from=${fromDate}&to=${toDate}`;
     
     const opciones = {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${process.env.PINGDOM_API_TOKEN}`
-      }
+      headers: { 'Authorization': `Bearer ${process.env.PINGDOM_API_TOKEN}` }
     };
 
-    const respuesta = await fetch(url, opciones);
-    const datos = await respuesta.json();
-    
-    // Le enviamos la respuesta de Pingdom a tu frontend de React
-    res.json(datos);
+    const [resSummary, resOutage] = await Promise.all([
+      fetch(urlSummary, opciones),
+      fetch(urlOutage, opciones)
+    ]);
+
+    const datosSummary = await resSummary.json();
+    const datosOutage = await resOutage.json();
+
+    res.json({
+      summary: datosSummary,
+      outages: datosOutage
+    });
     
   } catch (error) {
-    console.error('Error obteniendo datos de Pingdom:', error);
+    console.error('Error obteniendo datos de Uptime:', error);
     res.status(500).json({ error: 'Error interno conectando con Pingdom' });
   }
 });

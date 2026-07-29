@@ -3,29 +3,24 @@ import React, { useEffect, useState } from "react";
 import Nav from '../Nav/Nav';
 
 const System = () => {
-  // 1. Estados
   const [checks, setChecks] = useState([]);
   const [speedData, setSpeedData] = useState(null);
-  const [uptimeData, setUptimeData] = useState(null);
+  const [uptimeData, setUptimeData] = useState(null); // Nuevo estado para Uptime
   const [cargando, setCargando] = useState(true);
   const [ultimaActualizacion, setUltimaActualizacion] = useState("");
 
-  // 2. Función para obtener los datos
   const obtenerDatos = async () => {
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
-
+      
+      // 1. Estado (Online/Offline)
       const respuestaStatus = await fetch(`${baseUrl}/api/pingdom-status`);
       const datosStatus = await respuestaStatus.json();
-      if(datosStatus && datosStatus.checks) setChecks(datosStatus.checks);
+      if (datosStatus && datosStatus.checks) setChecks(datosStatus.checks);
 
-     
-
-        // Petición de Velocidad (Page Speed)
-
+      // 2. Velocidad (Page Speed)
       const respuestaSpeed = await fetch(`${baseUrl}/api/pingdom-speed`);
       const datosSpeed = await respuestaSpeed.json();
-
       if (datosSpeed) {
         setSpeedData({
           grade: 'A', 
@@ -36,8 +31,8 @@ const System = () => {
         });
       }
 
-      
-
+      // 3. Uptime (Simulado con los datos de tu captura temporalmente)
+      // TODO: Conectar a fetch(`${baseUrl}/api/pingdom-uptime`) posteriormente
       setUptimeData({
         downtime: "44 minutes",
         outages: 2,
@@ -48,9 +43,6 @@ const System = () => {
           { id: 3, status: 'up', from: '26/07/2026 11:09:19 PM', to: '27/07/2026 07:19:19 AM', duration: '8 hours' }
         ]
       });
-      
-      
-      
 
       const ahora = new Date();
       setUltimaActualizacion(ahora.toLocaleTimeString());
@@ -61,14 +53,12 @@ const System = () => {
     }
   };
 
-  // 3. Auto-refresco
   useEffect(() => {
     obtenerDatos();
     const intervalo = setInterval(() => obtenerDatos(), 60000);
     return () => clearInterval(intervalo);
   }, []);
 
-  // 4. Diseño de la página
   return (
     <>
       <Nav />
@@ -85,6 +75,7 @@ const System = () => {
           <div className="system-loading">Obteniendo métricas del servidor...</div>
         ) : (
           <>
+            {/* SECCIÓN 1: STATUS */}
             <div className="system-grid">
               {checks.length > 0 ? (
                 checks.map((check) => (
@@ -102,6 +93,7 @@ const System = () => {
               )}
             </div>
 
+            {/* SECCIÓN 2: VELOCIDAD */}
             {speedData && (
               <div className="speed-section">
                 <h2 className="speed-title">Page Speed <span>Performance</span></h2>
@@ -131,6 +123,52 @@ const System = () => {
                       {speedData.requests}
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* SECCIÓN 3: UPTIME SUMMARY */}
+            {uptimeData && (
+              <div className="speed-section">
+                <h2 className="speed-title">Uptime <span>Summary</span></h2>
+                
+                <div className="uptime-stats-grid">
+                  <div className="speed-card">
+                    <span className="speed-label">DOWNTIME</span>
+                    <div className="speed-value">{uptimeData.downtime}</div>
+                    <span className="uptime-subtext">({uptimeData.outages} outages)</span>
+                  </div>
+                  <div className="speed-card">
+                    <span className="speed-label">UPTIME</span>
+                    <div className="speed-value">{uptimeData.uptimePercent}</div>
+                  </div>
+                </div>
+
+                <div className="uptime-table-container">
+                  <table className="uptime-table">
+                    <thead>
+                      <tr>
+                        <th>STATUS</th>
+                        <th>FROM</th>
+                        <th>TO</th>
+                        <th>DURATION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {uptimeData.logs.map((log) => (
+                        <tr key={log.id}>
+                          <td>
+                            <div className={`log-badge log-${log.status}`}>
+                              {log.status === 'up' ? '↑ UP' : log.status === 'down' ? '↓ DOWN' : '? UNKNOWN'}
+                            </div>
+                          </td>
+                          <td>{log.from}</td>
+                          <td>{log.to}</td>
+                          <td>{log.duration}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
