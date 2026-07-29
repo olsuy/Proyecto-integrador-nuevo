@@ -2,10 +2,16 @@ import './System.css';
 import React, { useEffect, useState } from "react";
 import Nav from '../Nav/Nav';
 
+// Importamos los nuevos submódulos que acabas de crear
+import ServerStatus from './ServerStatus';
+import PageSpeed from './PageSpeed/PageSpeed';
+import UptimeSummary from './Uptime/Uptime';
+
 const System = () => {
+  // Estados para guardar la información
   const [checks, setChecks] = useState([]);
   const [speedData, setSpeedData] = useState(null);
-  const [uptimeData, setUptimeData] = useState(null); // Nuevo estado para Uptime
+  const [uptimeData, setUptimeData] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [ultimaActualizacion, setUltimaActualizacion] = useState("");
 
@@ -13,12 +19,12 @@ const System = () => {
     try {
       const baseUrl = process.env.REACT_APP_API_URL;
       
-      // 1. Estado (Online/Offline)
+      // 1. Petición de Estado (Online/Offline)
       const respuestaStatus = await fetch(`${baseUrl}/api/pingdom-status`);
       const datosStatus = await respuestaStatus.json();
       if (datosStatus && datosStatus.checks) setChecks(datosStatus.checks);
 
-      // 2. Velocidad (Page Speed)
+      // 2. Petición de Velocidad (Page Speed)
       const respuestaSpeed = await fetch(`${baseUrl}/api/pingdom-speed`);
       const datosSpeed = await respuestaSpeed.json();
       if (datosSpeed) {
@@ -31,8 +37,7 @@ const System = () => {
         });
       }
 
-      // 3. Uptime (Simulado con los datos de tu captura temporalmente)
-      // TODO: Conectar a fetch(`${baseUrl}/api/pingdom-uptime`) posteriormente
+      // 3. Datos de Uptime (Simulados temporalmente)
       setUptimeData({
         downtime: "44 minutes",
         outages: 2,
@@ -44,6 +49,7 @@ const System = () => {
         ]
       });
 
+      // Actualizamos la hora del monitoreo
       const ahora = new Date();
       setUltimaActualizacion(ahora.toLocaleTimeString());
     } catch (error) {
@@ -53,6 +59,7 @@ const System = () => {
     }
   };
 
+  // Se ejecuta al cargar la página y cada 60 segundos
   useEffect(() => {
     obtenerDatos();
     const intervalo = setInterval(() => obtenerDatos(), 60000);
@@ -75,103 +82,11 @@ const System = () => {
           <div className="system-loading">Obteniendo métricas del servidor...</div>
         ) : (
           <>
-            {/* SECCIÓN 1: STATUS */}
-            <div className="system-grid">
-              {checks.length > 0 ? (
-                checks.map((check) => (
-                  <div key={check.id} className="status-card">
-                    <div className="status-info">
-                      <h3>{check.name}</h3>
-                    </div>
-                    <div className={`status-badge ${check.status === 'up' ? 'status-up' : 'status-down'}`}>
-                      {check.status === 'up' ? 'ONLINE' : 'OFFLINE'}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="system-error">No hay métricas registradas en este momento.</p>
-              )}
-            </div>
-
-            {/* SECCIÓN 2: VELOCIDAD */}
-            {speedData && (
-              <div className="speed-section">
-                <h2 className="speed-title">Page Speed <span>Performance</span></h2>
-                <div className="speed-grid">
-                  <div className="speed-card">
-                    <span className="speed-label">Performance grade</span>
-                    <div className="speed-value grade">
-                      <span className="grade-letter">{speedData.grade}</span> 
-                      <span className="grade-score">{speedData.score}/100</span>
-                    </div>
-                  </div>
-                  <div className="speed-card">
-                    <span className="speed-label">Load time</span>
-                    <div className="speed-value">
-                      {speedData.loadTime}<span className="speed-unit">MS</span>
-                    </div>
-                  </div>
-                  <div className="speed-card">
-                    <span className="speed-label">Page size</span>
-                    <div className="speed-value">
-                      {speedData.pageSize}<span className="speed-unit">KB</span>
-                    </div>
-                  </div>
-                  <div className="speed-card">
-                    <span className="speed-label">Requests</span>
-                    <div className="speed-value">
-                      {speedData.requests}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* SECCIÓN 3: UPTIME SUMMARY */}
-            {uptimeData && (
-              <div className="speed-section">
-                <h2 className="speed-title">Uptime <span>Summary</span></h2>
-                
-                <div className="uptime-stats-grid">
-                  <div className="speed-card">
-                    <span className="speed-label">DOWNTIME</span>
-                    <div className="speed-value">{uptimeData.downtime}</div>
-                    <span className="uptime-subtext">({uptimeData.outages} outages)</span>
-                  </div>
-                  <div className="speed-card">
-                    <span className="speed-label">UPTIME</span>
-                    <div className="speed-value">{uptimeData.uptimePercent}</div>
-                  </div>
-                </div>
-
-                <div className="uptime-table-container">
-                  <table className="uptime-table">
-                    <thead>
-                      <tr>
-                        <th>STATUS</th>
-                        <th>FROM</th>
-                        <th>TO</th>
-                        <th>DURATION</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {uptimeData.logs.map((log) => (
-                        <tr key={log.id}>
-                          <td>
-                            <div className={`log-badge log-${log.status}`}>
-                              {log.status === 'up' ? '↑ UP' : log.status === 'down' ? '↓ DOWN' : '? UNKNOWN'}
-                            </div>
-                          </td>
-                          <td>{log.from}</td>
-                          <td>{log.to}</td>
-                          <td>{log.duration}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
+            {/* Aquí mandamos a llamar a tus módulos pasándoles la información */}
+            
+            <PageSpeed speedData={speedData} />
+            <ServerStatus checks={checks} />
+            <UptimeSummary uptimeData={uptimeData} />
           </>
         )}
       </div>
