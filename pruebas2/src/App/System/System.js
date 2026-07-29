@@ -8,7 +8,7 @@ import "./System.css";
 import Indicators from "./Indicators/Indicators";
 import ServerStatus from "./ServerStatus/ServerStatus";
 import PageSpeed from "./PageSpeed/PageSpeed";
-import Uptime from "./Uptime/Uptime";
+import UptimeSummary from "./Uptime/Uptime";
 import SystemLogs from "./SystemLogs/SystemLogs";
 
 function System() {
@@ -155,7 +155,7 @@ function System() {
         <PageSpeed speedData={speedData} />
         
         {/* 4. Tarjetas de Disponibilidad (Downtime %) */}
-        <Uptime uptimeData={uptimeData} />
+        <UptimeSummary uptimeData={uptimeData} />
         
         {/* 5. Tabla de Historial (Logs de Caídas) */}
         <SystemLogs uptimeData={uptimeData} />
