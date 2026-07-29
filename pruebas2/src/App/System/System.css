@@ -1,273 +1,75 @@
-/* =========================================
-   CONTENEDOR PRINCIPAL
-========================================= */
-.system-container {
-  background-color: #050a15; /* Fondo oscuro consistente con tu tema */
-  color: #ffffff;
-  min-height: calc(100vh - 80px); /* Ocupa el resto de la pantalla debajo del Nav */
-  padding: 3rem 10%;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+/* =========================================================
+   System.css (Global y Layout)
+========================================================= */
+.system {
+  --black: #05070b;
+  --blue-dark: #071a35;
+  --blue-electric: #00a8ff;
+  --cyan: #56d8ff;
+  --white: #ffffff;
+  --metal-1: #12233c;
+  --metal-2: #1a2c45;
+  --metal-3: #233a58;
+  --text-dim: #8fb8d8;
+
+  background: var(--black);
+  color: var(--white);
+  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  padding-top: 120px;
+}
+
+.system * {
   box-sizing: border-box;
 }
 
-/* =========================================
-   ENCABEZADO
-========================================= */
-.system-header {
-  margin-bottom: 3rem;
-  border-bottom: 1px solid #1e293b;
-  padding-bottom: 1.5rem;
-}
-
-.system-title {
-  font-size: 3rem;
-  font-weight: 800;
-  margin: 0;
-  color: #ffffff;
-}
-
-.system-title span {
-  color: #00b4d8; /* Color cian de acento */
-}
-
-.system-subtitle {
-  color: #94a3b8;
-  font-size: 1.1rem;
-  margin-top: 0.5rem;
-}
-
-.system-update-time {
-  color: #00b4d8;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-
-/* =========================================
-   SECCIÓN 1: ESTADO DEL SERVIDOR
-========================================= */
-.system-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.status-card {
-  background-color: #0a1122; /* Fondo de la tarjeta */
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.status-card:hover {
-  transform: translateY(-3px);
-  border-color: #00b4d8;
-}
-
-.status-info h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-/* Etiquetas ONLINE / OFFLINE */
-.status-badge {
-  padding: 0.5rem 1.2rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.status-up {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #10b981; /* Verde esmeralda */
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.status-down {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444; /* Rojo */
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-/* =========================================
-   SECCIÓN 2: RENDIMIENTO (PAGE SPEED)
-========================================= */
-.speed-section {
-  padding-top: 1rem;
-}
-
-.speed-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: #ffffff;
-}
-
-.speed-title span {
-  color: #00b4d8;
-}
-
-.speed-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
-.speed-card {
-  background-color: #0a1122;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 2.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.speed-card:hover {
-  transform: translateY(-3px);
-  border-color: #00b4d8;
-  box-shadow: 0 10px 20px rgba(0, 180, 216, 0.05);
-}
-
-.speed-label {
-  color: #94a3b8;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-}
-
-.speed-value {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-}
-
-.speed-unit {
-  font-size: 1.1rem;
-  color: #64748b;
-  font-weight: 600;
-}
-
-/* Letra de calificación (Grade A) */
-.grade {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-
-.grade-letter {
-  color: #10b981; /* Verde */
-  font-size: 4rem;
-  line-height: 1;
-}
-
-.grade-score {
-  font-size: 1.2rem;
-  color: #94a3b8;
-}
-
-/* Mensajes de carga */
-.system-loading, .system-error {
-  text-align: center;
-  color: #94a3b8;
-  font-size: 1.2rem;
-  padding: 4rem;
-}
-
-/* =========================================
-   SECCIÓN 3: UPTIME SUMMARY
-========================================= */
-.uptime-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.uptime-subtext {
-  color: #64748b;
-  font-size: 0.95rem;
-  margin-top: 0.5rem;
-}
-
-.uptime-table-container {
-  background-color: #0a1122;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-.uptime-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.uptime-table th {
-  background-color: #050a15;
-  color: #94a3b8;
-  padding: 1.2rem 1.5rem;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 1px solid #1e293b;
-}
-
-.uptime-table td {
-  padding: 1.2rem 1.5rem;
-  border-bottom: 1px solid #1e293b;
-  color: #ffffff;
-  font-size: 0.95rem;
-}
-
-.uptime-table tr:last-child td {
-  border-bottom: none;
-}
-
-.uptime-table tr:hover td {
-  background-color: rgba(30, 41, 59, 0.3);
-}
-
-/* Indicadores de Estado en la Tabla */
-.log-badge {
+.system-eyebrow {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.3rem 0.8rem;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 
-.log-up {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #10b981;
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
-.log-down {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
+.dot-online {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
 }
 
-.log-unknown {
-  background-color: rgba(100, 116, 139, 0.15);
-  color: #94a3b8;
+.dot-offline {
+  background: #ff5656;
+}
+
+/* --- ANIMACIONES --- */
+.system .reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.system .reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .system .reveal {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }

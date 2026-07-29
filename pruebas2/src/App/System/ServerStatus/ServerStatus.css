@@ -1,50 +1,47 @@
-/* ServerStatus.css */
-.system-grid {
+.features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
 }
 
-.status-card {
-  background-color: #0a1122;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
+.feature-card {
+  background: rgba(18, 35, 60, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(86, 216, 255, 0.14);
+  border-radius: 20px;
+  padding: 24px;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 168, 255, 0.55);
+  box-shadow: 0 25px 60px rgba(0, 168, 255, 0.18);
+}
+
+.server-badge {
+  display: inline-flex;
   align-items: center;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.status-card:hover {
-  transform: translateY(-3px);
-  border-color: #00b4d8;
-}
-
-.status-info h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.status-badge {
-  padding: 0.5rem 1.2rem;
+  gap: 6px;
+  padding: 6px 14px;
   border-radius: 50px;
-  font-size: 0.85rem;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
 }
 
-.status-up {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+.server-badge.up {
+  background: rgba(86, 216, 255, 0.1);
+  color: var(--cyan);
+  border: 1px solid rgba(86, 216, 255, 0.3);
 }
 
-.status-down {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+.server-badge.down {
+  background: rgba(255, 86, 86, 0.1);
+  color: #ff5656;
+  border: 1px solid rgba(255, 86, 86, 0.3);
 }

@@ -1,120 +1,96 @@
-/* UptimeSummary.css */
-.uptime-section {
-  padding-top: 1rem;
-}
-
-.uptime-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: #ffffff;
-}
-
-.uptime-title span {
-  color: #00b4d8;
-}
-
 .uptime-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 24px;
+  margin-bottom: 30px;
 }
 
 .uptime-card {
-  background-color: #0a1122;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 2.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   text-align: center;
-}
-
-.uptime-label {
-  color: #94a3b8;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  padding: 36px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(86, 216, 255, 0.16);
+  background: rgba(7, 26, 53, 0.4);
 }
 
 .uptime-value {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: #ffffff;
+  display: block;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  color: var(--cyan);
+  text-shadow: 0 0 30px rgba(0, 168, 255, 0.5);
+  margin-bottom: 8px;
+}
+
+.uptime-label {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
 }
 
 .uptime-subtext {
+  display: block;
+  font-size: 12px;
   color: #64748b;
-  font-size: 0.95rem;
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
-.uptime-table-container {
-  background-color: #0a1122;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
+.glass-table-wrap {
+  background: rgba(18, 35, 60, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(86, 216, 255, 0.14);
+  border-radius: 20px;
   overflow: hidden;
-  margin-top: 1rem;
 }
 
-.uptime-table {
+.glass-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
 
-.uptime-table th {
-  background-color: #050a15;
-  color: #94a3b8;
-  padding: 1.2rem 1.5rem;
-  font-size: 0.85rem;
+.glass-table th {
+  background: rgba(7, 26, 53, 0.6);
+  color: var(--text-dim);
+  padding: 16px 24px;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 1px solid #1e293b;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid rgba(86, 216, 255, 0.1);
 }
 
-.uptime-table td {
-  padding: 1.2rem 1.5rem;
-  border-bottom: 1px solid #1e293b;
-  color: #ffffff;
-  font-size: 0.95rem;
+.glass-table td {
+  padding: 16px 24px;
+  color: var(--white);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(86, 216, 255, 0.05);
 }
 
-.uptime-table tr:last-child td {
+.glass-table tr:last-child td {
   border-bottom: none;
 }
 
-.uptime-table tr:hover td {
-  background-color: rgba(30, 41, 59, 0.3);
+.glass-table tr:hover td {
+  background: rgba(86, 216, 255, 0.05);
 }
 
 .log-badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.3rem 0.8rem;
+  gap: 6px;
+  padding: 6px 14px;
   border-radius: 50px;
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
 }
 
-.log-up {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #10b981;
-}
+.log-badge.up { background: rgba(86, 216, 255, 0.1); color: var(--cyan); border: 1px solid rgba(86, 216, 255, 0.3); }
+.log-badge.down { background: rgba(255, 86, 86, 0.1); color: #ff5656; border: 1px solid rgba(255, 86, 86, 0.3); }
+.log-badge.unknown { background: rgba(143, 184, 216, 0.1); color: #8fb8d8; border: 1px solid rgba(143, 184, 216, 0.3); }
 
-.log-down {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-}
-
-.log-unknown {
-  background-color: rgba(100, 116, 139, 0.15);
-  color: #94a3b8;
+@media (max-width: 768px) {
+  .glass-table-wrap { overflow-x: auto; }
 }

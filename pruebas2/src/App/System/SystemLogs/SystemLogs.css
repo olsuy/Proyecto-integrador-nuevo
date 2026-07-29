@@ -1,0 +1,79 @@
+.glass-table-wrap {
+  background: rgba(18, 35, 60, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(86, 216, 255, 0.14);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.glass-table th {
+  background: rgba(7, 26, 53, 0.6);
+  color: var(--text-dim);
+  padding: 16px 24px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid rgba(86, 216, 255, 0.1);
+}
+
+.glass-table td {
+  padding: 16px 24px;
+  color: var(--white);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(86, 216, 255, 0.05);
+  transition: background 0.3s ease;
+}
+
+.glass-table tr:last-child td {
+  border-bottom: none;
+}
+
+.glass-table tr:hover td {
+  background: rgba(86, 216, 255, 0.05);
+}
+
+.log-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.log-badge.up {
+  background: rgba(86, 216, 255, 0.1);
+  color: var(--cyan);
+  border: 1px solid rgba(86, 216, 255, 0.3);
+}
+
+.log-badge.down {
+  background: rgba(255, 86, 86, 0.1);
+  color: #ff5656;
+  border: 1px solid rgba(255, 86, 86, 0.3);
+}
+
+.log-badge.unknown {
+  background: rgba(143, 184, 216, 0.1);
+  color: #8fb8d8;
+  border: 1px solid rgba(143, 184, 216, 0.3);
+}
+
+@media (max-width: 768px) {
+  .glass-table-wrap {
+    overflow-x: auto;
+  }
+  .glass-table th, .glass-table td {
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+}

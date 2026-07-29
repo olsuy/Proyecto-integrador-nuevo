@@ -1,42 +1,46 @@
 import React from 'react';
-import './Uptime.css'; // <-- Importamos su propio CSS
+import './Uptime.css';
 
 const UptimeSummary = ({ uptimeData }) => {
-  if (!uptimeData) return null; 
+  if (!uptimeData) return null;
 
   return (
-    <div className="uptime-section">
-      <h2 className="uptime-title">Uptime <span>Summary</span></h2>
-      
+    <section style={{ padding: "0 8vw 100px 8vw" }}>
+      <h2 className="reveal" style={{ fontSize: "24px", marginBottom: "30px", borderBottom: "1px solid rgba(86, 216, 255, 0.15)", paddingBottom: "15px" }}>
+        Uptime Summary (7 Días)
+      </h2>
+
+      {/* Tarjetas de Resumen */}
       <div className="uptime-stats-grid">
-        <div className="uptime-card">
-          <span className="uptime-label">DOWNTIME</span>
-          <div className="uptime-value">{uptimeData.downtime}</div>
-          <span className="uptime-subtext">({uptimeData.outages} outages)</span>
+        <div className="uptime-card reveal">
+          <span className="uptime-value">{uptimeData.uptimePercent.toFixed(2)}%</span>
+          <span className="uptime-label">Disponibilidad Global</span>
         </div>
-        <div className="uptime-card">
-          <span className="uptime-label">UPTIME</span>
-          <div className="uptime-value">{uptimeData.uptimePercent}</div>
+        <div className="uptime-card reveal" style={{ transitionDelay: "0.1s" }}>
+          <span className="uptime-value">{uptimeData.downtime}</span>
+          <span className="uptime-label">Downtime</span>
+          <span className="uptime-subtext">({uptimeData.outages} interrupciones registradas)</span>
         </div>
       </div>
 
-      <div className="uptime-table-container">
-        <table className="uptime-table">
+      {/* Tabla de Logs */}
+      <div className="glass-table-wrap reveal" style={{ transitionDelay: "0.2s" }}>
+        <table className="glass-table">
           <thead>
             <tr>
-              <th>STATUS</th>
-              <th>FROM</th>
-              <th>TO</th>
-              <th>DURATION</th>
+              <th>ESTADO</th>
+              <th>DESDE</th>
+              <th>HASTA</th>
+              <th>DURACIÓN</th>
             </tr>
           </thead>
           <tbody>
             {uptimeData.logs.map((log) => (
               <tr key={log.id}>
                 <td>
-                  <div className={`log-badge log-${log.status}`}>
+                  <span className={`log-badge ${log.status}`}>
                     {log.status === 'up' ? '↑ UP' : log.status === 'down' ? '↓ DOWN' : '? UNKNOWN'}
-                  </div>
+                  </span>
                 </td>
                 <td>{log.from}</td>
                 <td>{log.to}</td>
@@ -46,7 +50,7 @@ const UptimeSummary = ({ uptimeData }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 };
 

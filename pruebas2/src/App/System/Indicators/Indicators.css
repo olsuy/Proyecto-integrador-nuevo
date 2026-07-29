@@ -1,0 +1,36 @@
+.indicators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.indicator-card {
+  text-align: center;
+  padding: 46px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(86, 216, 255, 0.16);
+  background: rgba(7, 26, 53, 0.4);
+}
+
+.indicator-value {
+  display: block;
+  font-size: clamp(38px, 4.4vw, 56px);
+  font-weight: 800;
+  color: var(--cyan);
+  text-shadow: 0 0 30px rgba(0, 168, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 12px;
+}
+
+.indicator-label {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+@media (max-width: 640px) {
+  .indicators-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
