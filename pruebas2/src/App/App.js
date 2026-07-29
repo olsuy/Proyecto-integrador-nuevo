@@ -56,7 +56,7 @@ function App() {
         <Route
           path="/system"
           element={
-            <ProtectedRoute allowedRoles={[6,7]}>
+            <ProtectedRoute allowedRoles={[6, 7]}>
               <System />
             </ProtectedRoute>
           }

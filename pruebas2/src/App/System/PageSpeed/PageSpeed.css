@@ -1,0 +1,82 @@
+/* PageSpeed.css */
+.speed-section {
+  padding-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.speed-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.speed-title span {
+  color: #00b4d8;
+}
+
+.speed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.speed-card {
+  background-color: #0a1122;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.speed-card:hover {
+  transform: translateY(-3px);
+  border-color: #00b4d8;
+  box-shadow: 0 10px 20px rgba(0, 180, 216, 0.05);
+}
+
+.speed-label {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.speed-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.speed-unit {
+  font-size: 1.1rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.grade {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.grade-letter {
+  color: #10b981;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.grade-score {
+  font-size: 1.2rem;
+  color: #94a3b8;
+}

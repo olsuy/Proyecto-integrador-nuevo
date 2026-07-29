@@ -1,5 +1,5 @@
 import React from 'react';
-import './UptimeSummary.css'; // <-- Importamos su propio CSS
+import './Uptime.css'; // <-- Importamos su propio CSS
 
 const UptimeSummary = ({ uptimeData }) => {
   if (!uptimeData) return null; 

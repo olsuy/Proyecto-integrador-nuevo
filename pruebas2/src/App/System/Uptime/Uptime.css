@@ -1,0 +1,120 @@
+/* UptimeSummary.css */
+.uptime-section {
+  padding-top: 1rem;
+}
+
+.uptime-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.uptime-title span {
+  color: #00b4d8;
+}
+
+.uptime-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.uptime-card {
+  background-color: #0a1122;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.uptime-label {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.uptime-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.uptime-subtext {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.uptime-table-container {
+  background-color: #0a1122;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.uptime-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.uptime-table th {
+  background-color: #050a15;
+  color: #94a3b8;
+  padding: 1.2rem 1.5rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.uptime-table td {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #1e293b;
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.uptime-table tr:last-child td {
+  border-bottom: none;
+}
+
+.uptime-table tr:hover td {
+  background-color: rgba(30, 41, 59, 0.3);
+}
+
+.log-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.log-up {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.log-down {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.log-unknown {
+  background-color: rgba(100, 116, 139, 0.15);
+  color: #94a3b8;
+}
