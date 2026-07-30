@@ -6,6 +6,7 @@ import Monitoring from './Monitoring/Monitoring';
 import ProtectedRoute from './ProtectedRute';
 import Support from './Support/Support';
 import System from './System/System';
+import PLC_SCADA from './PLC_SCADA/PLC_SCADA';
 function App() {
   const auth = localStorage.getItem("auth") === "true";
 
@@ -58,6 +59,15 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={[6, 7]}>
               <System />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/plc_scada"
+          element={
+            <ProtectedRoute allowedRoles={[6]}>
+              <PLC_SCADA />
             </ProtectedRoute>
           }
         />
