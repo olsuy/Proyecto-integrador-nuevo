@@ -35,10 +35,11 @@ function Elevators() {
       {!loading && (
         <>
           <Hero />
-          
+          <Footer/>
         </>
+        
       )}
-      <Footer/>
+      
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Nav from "../Nav/Nav";
 import "./System.css";
-
+import Footer from "../Footer/Footer";
 // Assets
 import stationHero from "./assets/station-hero.png";
 import stationGiant from "./assets/station-giant.png";
@@ -156,6 +156,7 @@ function System() {
         <SystemLogs uptimeData={uptimeData} />
 
       </div>
+      <Footer/>
     </>
   );
 }

@@ -117,8 +117,8 @@ const Monitoring = () => {
             <p>{data?.field8 || data?.created_at || "N/A"}</p>
           </div>
         </div>
-        <Footer/>
       </div>
+      <Footer/>
     </>
   );
 };
