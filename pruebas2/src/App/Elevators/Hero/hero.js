@@ -13,7 +13,7 @@ function Hero() {
       className="hero"
       style={{ backgroundImage: `url(${fondo})` }}
     >
-       <Nav/>
+    
        
       <div className="hero-overlay">
         
