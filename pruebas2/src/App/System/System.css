@@ -180,3 +180,48 @@
     opacity: 1 !important;
   }
 }
+
+.monitoring-loader-card {
+  z-index: 10000;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 22px;
+  padding: 28px 34px;
+  box-shadow: 0 20px 50px rgba(0, 70, 140, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: loaderPop 0.35s ease;
+}
+
+.monitoring-loader-card p {
+  margin: 0;
+  color: #1e3a5f;
+  font-weight: 600;
+}
+
+.monitoring-loader-ring {
+  width: 52px;
+  height: 52px;
+  border: 4px solid rgba(24, 144, 255, 0.18);
+  border-top-color: #1795e8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loaderPop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

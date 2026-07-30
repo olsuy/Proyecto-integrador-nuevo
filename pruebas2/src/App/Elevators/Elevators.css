@@ -23,6 +23,7 @@
 }
 
 .elevators-loader-card {
+  z-index: 10000;
   background: rgba(255, 255, 255, 0.92);
   border-radius: 22px;
   padding: 28px 34px;

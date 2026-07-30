@@ -70,7 +70,8 @@ function PLC_SCADA() {
     <>
       <Nav />
       <div className="plc-scada" ref={containerRef}>
-        
+        <div className="monitoring-loader-card">
+        <div className="monitoring-loader-ring"></div>
         <HeroSection />
         <ElevatorOverview systemData={systemData} plcStatus={plcStatus} />
         <LiveVariables systemData={systemData} />
@@ -89,6 +90,7 @@ function PLC_SCADA() {
           <button className="cta-button reveal">Open Full Dashboard</button>
         </section>
         <Footer />
+        </div>
       </div>
       
     </>

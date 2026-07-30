@@ -109,7 +109,8 @@ function System() {
     <>
       <Nav />
       <div className="system" ref={containerRef}>
-        
+        <div className="monitoring-loader-card">
+        <div className="monitoring-loader-ring"></div>
         {/* ===================== HEADER ===================== */}
         <section className="dashboard-header reveal is-revealed">
           <div className="dashboard-header-text">
@@ -154,7 +155,7 @@ function System() {
         <PageSpeed speedData={speedData} />
         <Uptime uptimeData={uptimeData} />
         <SystemLogs uptimeData={uptimeData} />
-
+        </div>
       </div>
       <Footer/>
     </>
