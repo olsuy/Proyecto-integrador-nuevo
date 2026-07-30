@@ -127,7 +127,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 250px;
+  min-height: 550px; 
 }
 
 .digital-twin-image {
