@@ -20,7 +20,7 @@ function Elevators() {
   return (
     <div>
       
-
+      <Nav/>
       {loading && (
         <div className="elevators-overlay show">
           <div className="elevators-loader-card">
