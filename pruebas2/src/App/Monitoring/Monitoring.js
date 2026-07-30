@@ -76,21 +76,22 @@ const Monitoring = () => {
     const variable = dataArray.find((v) => v.nombre_variable === variableName);
     if (!variable) return "N/A";
     
-    // Traducción de valores para la UI en inglés
+    // Traducción y ajuste a Title Case (elegante y moderno)
     if (variable.valor_texto !== null) {
       const textVal = variable.valor_texto.toLowerCase();
-      if (textVal === 'cerradas') return "CLOSED";
-      if (textVal === 'abiertas') return "OPEN";
-      if (textVal === 'detenido') return "STOPPED";
-      if (textVal === 'subiendo') return "GOING UP";
-      if (textVal === 'bajando') return "GOING DOWN";
-      return variable.valor_texto.toUpperCase();
+      if (textVal === 'cerradas') return "Closed";
+      if (textVal === 'abiertas') return "Open";
+      if (textVal === 'detenido') return "Stopped";
+      if (textVal === 'subiendo') return "Going Up";
+      if (textVal === 'bajando') return "Going Down";
+      // Capitalizar primera letra por defecto
+      return textVal.charAt(0).toUpperCase() + textVal.slice(1);
     }
     
     if (variable.valor_numerico !== null) return variable.valor_numerico;
     
     if (variable.valor_booleano !== null) {
-      return variable.valor_booleano === 1 ? "ACTIVE" : "INACTIVE";
+      return variable.valor_booleano === 1 ? "Active" : "Inactive";
     }
     
     return "N/A";
@@ -99,17 +100,16 @@ const Monitoring = () => {
   const DashboardCard = ({ title, value, unit, type, Icon }) => {
     let statusClass = "";
     
-    // Asignación de colores basada en los valores en inglés
     if (type === "mantenimiento") {
-      statusClass = value === "ACTIVE" ? "card-alert" : "card-safe";
+      statusClass = value === "Active" ? "card-alert" : "card-safe";
     } else if (type === "puertas") {
-      statusClass = value === "OPEN" ? "card-warning" : "card-safe";
+      statusClass = value === "Open" ? "card-warning" : "card-safe";
     }
 
     return (
       <div className={`monitoring-card ${statusClass}`}>
         <h3>
-          {Icon && <Icon size={18} />} 
+          {Icon && <Icon size={22} color="#5bb7ff" strokeWidth={2.5} />} 
           {title}
         </h3>
         <p>
@@ -161,20 +161,20 @@ const Monitoring = () => {
           <div className="monitoring-column">
             <div className="monitoring-column-title">
               <span>Elevator A</span>
-              <span className="status-indicator">● ONLINE</span>
+              <span className="status-indicator">● Online</span>
             </div>
             
             <div className="monitoring-grid">
               <DashboardCard 
                 Icon={MapPin}
-                title="Position" 
+                title="Current Position" 
                 value={getVariableValue(elevadorA, 'posicion_actual')} 
                 unit="Floor" 
                 type="posicion" 
               />
               <DashboardCard 
                 Icon={DoorOpen}
-                title="Doors" 
+                title="Door Status" 
                 value={getVariableValue(elevadorA, 'estado_puertas')} 
                 type="puertas" 
               />
@@ -197,20 +197,20 @@ const Monitoring = () => {
           <div className="monitoring-column">
             <div className="monitoring-column-title">
               <span>Elevator B</span>
-              <span className="status-indicator">● ONLINE</span>
+              <span className="status-indicator">● Online</span>
             </div>
             
             <div className="monitoring-grid">
               <DashboardCard 
                 Icon={MapPin}
-                title="Position" 
+                title="Current Position" 
                 value={getVariableValue(elevadorB, 'posicion_actual')} 
                 unit="Floor" 
                 type="posicion" 
               />
               <DashboardCard 
                 Icon={DoorOpen}
-                title="Doors" 
+                title="Door Status" 
                 value={getVariableValue(elevadorB, 'estado_puertas')} 
                 type="puertas" 
               />

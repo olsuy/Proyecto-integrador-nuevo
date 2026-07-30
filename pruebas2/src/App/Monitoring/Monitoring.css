@@ -6,7 +6,8 @@
   background: #081526;
   color: white;
   padding: 40px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Tipografía limpia y moderna inspirada en tu diseño */
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 .monitoring-header {
@@ -18,14 +19,16 @@
   font-size: 2.8rem;
   margin-bottom: 5px;
   color: #ffffff;
-  letter-spacing: 1px;
+  font-weight: 800;
+  /* Extra bold para el título principal */
+  letter-spacing: -0.5px;
+  /* Un poco más apretado, aspecto moderno */
 }
 
 .monitoring-header p {
   color: #8ab4f8;
   font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-weight: 500;
 }
 
 /* =========================================
@@ -62,19 +65,18 @@
   border-bottom: 2px solid rgba(23, 149, 232, 0.3);
   padding-bottom: 15px;
   margin-bottom: 25px;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .status-indicator {
-  font-size: 0.9rem;
-  padding: 5px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
   border-radius: 20px;
   background: rgba(65, 217, 111, 0.15);
   color: #41d96f;
   border: 1px solid #41d96f;
-  letter-spacing: 1px;
 }
 
 /* =========================================
@@ -89,7 +91,7 @@
 .monitoring-card {
   background: rgba(8, 22, 35, 0.9);
   border-radius: 12px;
-  padding: 20px;
+  padding: 24px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
@@ -111,35 +113,41 @@
   background: #1795e8;
 }
 
+/* TITULOS DE LAS TARJETAS (Respetando el diseño Extra Bold de la imagen) */
 .monitoring-card h3 {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 1.25rem;
+  /* Más grande */
+  font-weight: 800;
+  /* Extra bold */
   margin-bottom: 15px;
-  color: #b5b5b5;
+  color: #ffffff;
+  /* Texto claro */
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  letter-spacing: -0.3px;
 }
 
+/* VALORES DE LAS TARJETAS */
 .monitoring-card p {
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 600;
+  /* Semi bold, sin usar fuentes raras */
+  color: #b5b5b5;
+  /* Un gris más suave para que el título destaque */
   margin: 0;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .unit {
   font-size: 1rem;
   color: #8ab4f8;
+  font-weight: 500;
   margin-left: 5px;
 }
 
 /* =========================================
    CÓDIGOS DE COLORES (ESTADOS)
    ========================================= */
-/* Estado: Alerta / Peligro / Mantenimiento */
 .card-alert::before {
   background: #ff4d4f;
 }
@@ -149,15 +157,11 @@
   box-shadow: 0 0 15px rgba(255, 77, 79, 0.15);
 }
 
-.card-alert h3 {
-  color: #ff4d4f;
-}
-
+.card-alert h3,
 .card-alert p {
   color: #ff4d4f;
 }
 
-/* Estado: Seguro / Cerrado / Ok */
 .card-safe::before {
   background: #41d96f;
 }
@@ -166,7 +170,6 @@
   border: 1px solid rgba(65, 217, 111, 0.3);
 }
 
-/* Estado: Precaución / Abierto */
 .card-warning::before {
   background: #faad14;
 }
@@ -180,7 +183,7 @@
 }
 
 /* =========================================
-   OVERLAY Y LOADER (Sin modificaciones)
+   OVERLAY Y LOADER 
    ========================================= */
 .monitoring-overlay {
   position: fixed;
