@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Monitoring.css";
 import Nav from "../Nav/Nav";
+import Footer from "../Footer/Footer";
 
 const CHANNEL_ID = "3433907";
 const READ_API_KEY = "TJEETPIU13DNG5BG";
@@ -116,6 +117,7 @@ const Monitoring = () => {
             <p>{data?.field8 || data?.created_at || "N/A"}</p>
           </div>
         </div>
+        <Footer/>
       </div>
     </>
   );

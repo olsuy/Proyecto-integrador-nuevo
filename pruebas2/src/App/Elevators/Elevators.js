@@ -5,6 +5,7 @@ import Card from "./Cards/Cards";
 import Hero from "./Hero/hero";
 import PanelInfo from "./panel/panel";
 import Statistics from "./Status_cards/st_cards";
+import Footer from "../Footer/Footer";
 
 function Elevators() {
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,8 @@ function Elevators() {
   }, []);
 
   return (
-    <div>
+    // Agregamos la clase "elevators-wrapper" aquí
+    <div className="elevators-wrapper">
       
       <Nav/>
       {loading && (
@@ -36,6 +38,7 @@ function Elevators() {
           
         </>
       )}
+      <Footer/>
     </div>
   );
 }

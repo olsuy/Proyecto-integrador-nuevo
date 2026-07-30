@@ -1,4 +1,6 @@
 .navbar {
+  position: sticky;
+  top: 0;
   background: #1d1d1d;
   min-height: 80px;
   display: flex;

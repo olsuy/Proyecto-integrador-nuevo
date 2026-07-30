@@ -88,9 +88,9 @@ function PLC_SCADA() {
           </p>
           <button className="cta-button reveal">Open Full Dashboard</button>
         </section>
-        
+        <Footer />
       </div>
-      <Footer />
+      
     </>
   );
 }
