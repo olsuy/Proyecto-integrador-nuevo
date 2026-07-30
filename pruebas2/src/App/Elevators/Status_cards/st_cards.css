@@ -1,31 +1,25 @@
-.statistics{
-    width:90%;
-    margin:auto;
-    margin-top:-140px;
-    position:relative;
-    z-index:10;
-    margin-top:-350px;
+.statistics {
+    width: 90%;
+    margin: 0 auto;
+    /* Eliminamos los margin-top de -140px y -350px */
+    padding-top: 40px; /* Da un respiro entre el Hero y las tarjetas */
+    padding-bottom: 80px; /* Empuja el footer hacia abajo correctamente */
+    position: relative;
+    z-index: 10;
 }
 
-.statistics-title{
-
-    color:white;
-
-    font-size:22px;
-
-    margin-bottom:30px;
-
-    font-weight:600;
-
+.statistics-title {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-.statistics-container{
-
-    display:flex;
-    justify-content:flex-start;
-
-    gap:8px;
-
-    flex-wrap:wrap;
-
+.statistics-container {
+    display: flex;
+    /* Cambiamos flex-start por space-between o usamos gap para distribuir mejor */
+    justify-content: center; 
+    gap: 20px;
+    flex-wrap: wrap;
 }

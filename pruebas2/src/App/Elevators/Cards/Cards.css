@@ -1,18 +1,13 @@
-.card{
-    width:160px;
-    height:135px;
-
-    background:#081623;
-
-    border:1px solid rgba(255,255,255,.1);
-
-    border-radius:18px;
-
-    padding:20px;
-
-    color:white;
-
-    transition:.3s;
+.card {
+    flex: 1; /* Hace que todas las tarjetas crezcan para llenar el espacio vacío */
+    min-width: 160px; /* Evita que se hagan demasiado pequeñas en móviles */
+    min-height: 135px; /* Usamos min-height en lugar de height fijo */
+    background: #081623;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 18px;
+    padding: 20px;
+    color: white;
+    transition: .3s;
 }
 
 .card:hover{
