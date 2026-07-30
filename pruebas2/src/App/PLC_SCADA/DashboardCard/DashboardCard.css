@@ -1,19 +1,68 @@
-import React from "react";
-import "./Industrycard.css";
-function IndustryCard({ title, text, icon, status, metaLabel, metaValue }) {
-  return (
-    <div className="industry-card reveal">
-      <div className="industry-card-top">
-        <span className="industry-icon">{icon}</span>
-        <span className="industry-status">{status}</span>
-      </div>
-      <h3>{title}</h3>
-      <p>{text}</p>
-      <div className="industry-card-meta">
-        {metaLabel}: <strong>{metaValue}</strong>
-      </div>
-    </div>
-  );
+/* =========================================================
+   DASHBOARD CARD (sección 02 / Real-Time Monitoring)
+   Usa las variables de color globales definidas en :root
+   dentro de PLC_SCADA.css (--grey-01, --blue-primary, etc.)
+========================================================= */
+
+.dashboard-card {
+  position: relative;
+  z-index: 1;
+  background: var(--grey-01);
+  border: 1px solid rgba(46, 167, 255, 0.12);
+  border-radius: 18px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
-export default IndustryCard;
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(46, 167, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 168, 255, 0.12);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-icon {
+  font-size: 22px;
+}
+
+.card-label {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--grey-02);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--blue-primary),
+    var(--blue-bright)
+  );
+  box-shadow: 0 0 12px rgba(0, 168, 255, 0.6);
+  transition: width 0.6s ease;
+}
