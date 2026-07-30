@@ -44,10 +44,10 @@ const Indicators = ({ uptimeData, speedData }) => {
   return (
     <section style={{ padding: "20px 8vw 60px 8vw", background: "transparent" }}>
       <div className="indicators-grid">
-        <IndicatorCard value={uptimeData ? uptimeData.uptimePercent : 0} decimals={2} suffix="%" label="Disponibilidad Global" index={0} />
-        <IndicatorCard value={speedData ? speedData.loadTime : 0} decimals={0} suffix=" ms" label="Tiempo de Respuesta" index={1} />
+        <IndicatorCard value={uptimeData ? uptimeData.uptimePercent : 0} decimals={2} suffix="%" label="Global Availability" index={0} />
+        <IndicatorCard value={speedData ? speedData.loadTime : 0} decimals={0} suffix=" ms" label="Response Time" index={1} />
         <IndicatorCard value={speedData ? speedData.score : 0} decimals={0} suffix="/100" label="Performance Grade" index={2} />
-        <IndicatorCard value={uptimeData ? uptimeData.outages : 0} decimals={0} label="Interrupciones (7 días)" index={3} />
+        <IndicatorCard value={uptimeData ? uptimeData.outages : 0} decimals={0} label="Outages (7 Days)" index={3} />
       </div>
     </section>
   );

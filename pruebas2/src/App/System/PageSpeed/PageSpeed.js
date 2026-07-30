@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './PageSpeed.css';
 
-// Subcomponente interno para animar los números
 function AnimatedMetric({ value, decimals, suffix = "", label, index }) {
   const valueRef = useRef(null);
 
@@ -39,7 +38,7 @@ const PageSpeed = ({ speedData }) => {
   return (
     <section style={{ padding: "0 8vw 60px 8vw" }}>
       <h2 className="reveal" style={{ fontSize: "24px", marginBottom: "30px", borderBottom: "1px solid rgba(86, 216, 255, 0.15)", paddingBottom: "15px" }}>
-        Rendimiento de Plataforma (Page Speed)
+        Platform Performance (Page Speed)
       </h2>
       
       <div className="speed-grid">

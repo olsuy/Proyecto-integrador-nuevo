@@ -2,81 +2,70 @@ import React, { useEffect, useRef, useState } from "react";
 import Nav from "../Nav/Nav";
 import "./System.css";
 
-// =====================================================================
-// IMPORTACIÓN DE TUS 5 MÓDULOS
-// =====================================================================
+// Assets
+import stationHero from "./assets/station-hero.png";
+import stationGiant from "./assets/station-giant.png";
+
+// Modules
 import Indicators from "./Indicators/Indicators";
 import ServerStatus from "./ServerStatus/ServerStatus";
 import PageSpeed from "./PageSpeed/PageSpeed";
-import UptimeSummary from "./Uptime/Uptime";
+import Uptime from "./Uptime/Uptime";
 import SystemLogs from "./SystemLogs/SystemLogs";
 
 function System() {
   const containerRef = useRef(null);
 
-  // --- ESTADOS DE PINGDOM ---
+  // States
   const [checks, setChecks] = useState([]);
   const [speedData, setSpeedData] = useState(null);
   const [uptimeData, setUptimeData] = useState(null);
   const [statusOnline, setStatusOnline] = useState(true);
-  const [ultimaActualizacion, setUltimaActualizacion] = useState("");
+  const [lastUpdate, setLastUpdate] = useState("");
 
-  const obtenerDatos = async () => {
+  const fetchData = async () => {
     try {
       const baseUrl = process.env.REACT_APP_API_URL || "https://proyecto-integrador-nuevo-production.up.railway.app";
       
-      // 1. Estado de Servidores
-      const respuestaStatus = await fetch(`${baseUrl}/api/pingdom-status`);
-      const datosStatus = await respuestaStatus.json();
-      if (datosStatus && datosStatus.checks) {
-        setChecks(datosStatus.checks);
-        setStatusOnline(datosStatus.checks.every(c => c.status === 'up'));
+      const statusResponse = await fetch(`${baseUrl}/api/pingdom-status`);
+      const statusData = await statusResponse.json();
+      if (statusData && statusData.checks) {
+        setChecks(statusData.checks);
+        setStatusOnline(statusData.checks.every(c => c.status === 'up'));
       }
 
-      // 2. Velocidad (Page Speed)
-      const respuestaSpeed = await fetch(`${baseUrl}/api/pingdom-speed`);
-      const datosSpeed = await respuestaSpeed.json();
-      if (datosSpeed && datosSpeed.summary) {
+      const speedResponse = await fetch(`${baseUrl}/api/pingdom-speed`);
+      const speedDataObj = await speedResponse.json();
+      if (speedDataObj && speedDataObj.summary) {
         setSpeedData({
           grade: 'A', 
-          score: datosSpeed.summary.performance?.grade || 100, 
-          loadTime: datosSpeed.summary.loadtime || 96, 
-          pageSize: datosSpeed.summary.bytes ? (datosSpeed.summary.bytes / 1024).toFixed(2) : 1.18, 
-          requests: datosSpeed.summary.requests || 2
+          score: speedDataObj.summary.performance?.grade || 100, 
+          loadTime: speedDataObj.summary.loadtime || 96, 
+          pageSize: speedDataObj.summary.bytes ? (speedDataObj.summary.bytes / 1024).toFixed(2) : 1.18, 
+          requests: speedDataObj.summary.requests || 2
         });
       }
 
-      // 3. Uptime y Logs
-      const respuestaUptime = await fetch(`${baseUrl}/api/pingdom-uptime`);
-      const datosUptime = await respuestaUptime.json();
+      const uptimeResponse = await fetch(`${baseUrl}/api/pingdom-uptime`);
+      const uptimeDataObj = await uptimeResponse.json();
       
-      if (datosUptime && datosUptime.summary && datosUptime.outages) {
-        const statusSummary = datosUptime.summary.summary?.status || {};
+      if (uptimeDataObj && uptimeDataObj.summary && uptimeDataObj.outages) {
+        const statusSummary = uptimeDataObj.summary.summary?.status || {};
         const totalUp = statusSummary.totalup || 0;
         const totalDown = statusSummary.totaldown || 0;
         const totalTime = totalUp + totalDown;
-        
-        // Calculamos el % de disponibilidad real
         const uptimePercent = totalTime > 0 ? ((totalUp / totalTime) * 100) : 100;
 
-        // Mapeamos los estados para la tabla de logs
-        const rawStates = datosUptime.outages.summary?.states || [];
+        const rawStates = uptimeDataObj.outages.summary?.states || [];
         const logs = rawStates.map((state, index) => {
-          const fromDate = new Date(state.timefrom * 1000).toLocaleString();
-          const toDate = new Date(state.timeto * 1000).toLocaleString();
+          const fromDate = new Date(state.timefrom * 1000).toLocaleString('en-US');
+          const toDate = new Date(state.timeto * 1000).toLocaleString('en-US');
           const durationMins = Math.round((state.timeto - state.timefrom) / 60);
           const durationText = durationMins < 60 ? `${durationMins} minutes` : `${Math.round(durationMins / 60)} hours`;
 
-          return {
-            id: index,
-            status: state.status, // 'up', 'down', o 'unknown'
-            from: fromDate,
-            to: toDate,
-            duration: durationText
-          };
-        }).reverse(); // Más reciente primero
+          return { id: index, status: state.status, from: fromDate, to: toDate, duration: durationText };
+        }).reverse();
 
-        // Guardamos todo en el estado que alimenta a los módulos
         setUptimeData({
           downtime: `${Math.round(totalDown / 60)} minutes`,
           outages: logs.filter(log => log.status === 'down').length,
@@ -85,21 +74,19 @@ function System() {
         });
       }
 
-      const ahora = new Date();
-      setUltimaActualizacion(ahora.toLocaleTimeString());
+      const now = new Date();
+      setLastUpdate(now.toLocaleTimeString('en-US'));
     } catch (error) {
-      console.error("Error conectando con el backend:", error);
+      console.error("Error connecting to backend:", error);
     }
   };
 
   useEffect(() => {
-    obtenerDatos();
-    // Refresco automático cada 60 segundos
-    const intervalo = setInterval(() => obtenerDatos(), 60000);
-    return () => clearInterval(intervalo);
+    fetchData();
+    const interval = setInterval(() => fetchData(), 60000);
+    return () => clearInterval(interval);
   }, []);
 
-  // --- ANIMACIONES DE APARICIÓN (GSAP/IntersectionObserver) ---
   useEffect(() => {
     const root = containerRef.current;
     if (!root) return;
@@ -123,41 +110,43 @@ function System() {
       <Nav />
       <div className="system" ref={containerRef}>
         
-        {/* ===================== HEADER OPERATIVO ===================== */}
-        <section style={{ padding: "0 8vw", marginBottom: "40px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "20px" }}>
-            <div>
-              <span className="system-eyebrow reveal is-revealed">
-                <span className={`dot ${statusOnline ? "dot-online" : "dot-offline"}`}></span>
-                Centro de Monitoreo
-              </span>
-              <h1 style={{ fontSize: "clamp(32px, 4vw, 48px)", margin: "10px 0 0 0", color: "#fff", fontWeight: "800" }} className="reveal is-revealed">
-                System Operations
-              </h1>
-            </div>
-            {ultimaActualizacion && (
-              <div className="reveal is-revealed" style={{ color: "#8fb8d8", fontSize: "14px", fontWeight: "600" }}>
-                Última actualización: <span style={{ color: "#56d8ff" }}>{ultimaActualizacion}</span>
+        {/* ===================== HEADER ===================== */}
+        <section className="dashboard-header reveal is-revealed">
+          <div className="dashboard-header-text">
+            <span className="system-eyebrow">
+              <span className={`dot ${statusOnline ? "dot-online" : "dot-offline"}`}></span>
+              Monitoring Center
+            </span>
+            <h1 className="dashboard-title">System Operations</h1>
+            {lastUpdate && (
+              <div className="dashboard-update">
+                Last updated: <span>{lastUpdate}</span>
               </div>
             )}
           </div>
+          <div className="dashboard-header-visual">
+            <img src={stationHero} alt="Industrial Node" className="floating-hero" />
+          </div>
         </section>
 
-        {/* ===================== MÓDULOS INYECTADOS ===================== */}
-        
-        {/* 1. KPIs Globales Superiores */}
+        {/* ===================== MODULES ===================== */}
         <Indicators speedData={speedData} uptimeData={uptimeData} />
         
-        {/* 2. Tarjetas de Servidores (Online/Offline) */}
         <ServerStatus checks={checks} />
-        
-        {/* 3. Rendimiento (Velocidad de Carga) */}
+
+        {/* ===================== DIGITAL TWIN ===================== */}
+        <section style={{ padding: "0 8vw 60px 8vw" }}>
+          <div className="digital-twin-card reveal">
+            <img src={stationGiant} alt="Control Station" className="digital-twin-image" />
+            <div className="digital-twin-overlay">
+              <h3>Active Facility Monitoring</h3>
+              <p>Stable connection with all logic controllers.</p>
+            </div>
+          </div>
+        </section>
+
         <PageSpeed speedData={speedData} />
-        
-        {/* 4. Tarjetas de Disponibilidad (Downtime %) */}
-        <UptimeSummary uptimeData={uptimeData} />
-        
-        {/* 5. Tabla de Historial (Logs de Caídas) */}
+        <Uptime uptimeData={uptimeData} />
         <SystemLogs uptimeData={uptimeData} />
 
       </div>

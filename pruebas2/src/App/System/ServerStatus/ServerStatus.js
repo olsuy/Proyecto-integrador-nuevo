@@ -5,7 +5,7 @@ const ServerStatus = ({ checks }) => {
   return (
     <section style={{ padding: "0 8vw 60px 8vw" }}>
       <h2 className="reveal" style={{ fontSize: "24px", marginBottom: "30px", borderBottom: "1px solid rgba(86, 216, 255, 0.15)", paddingBottom: "15px" }}>
-        Estado de Servidores
+        Server Status
       </h2>
       
       <div className="features-grid">
@@ -19,7 +19,7 @@ const ServerStatus = ({ checks }) => {
             </div>
           ))
         ) : (
-          <p style={{ color: "#8fb8d8" }}>No hay métricas de servidores registradas en este momento.</p>
+          <p style={{ color: "#8fb8d8" }}>No server metrics are currently registered.</p>
         )}
       </div>
     </section>

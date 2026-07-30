@@ -1,37 +1,35 @@
 import React from 'react';
-import './Uptime.css';
+import './Uptime.css'; 
 
-const UptimeSummary = ({ uptimeData }) => {
+const Uptime = ({ uptimeData }) => {
   if (!uptimeData) return null;
 
   return (
     <section style={{ padding: "0 8vw 100px 8vw" }}>
       <h2 className="reveal" style={{ fontSize: "24px", marginBottom: "30px", borderBottom: "1px solid rgba(86, 216, 255, 0.15)", paddingBottom: "15px" }}>
-        Uptime Summary (7 Días)
+        Uptime Summary (7 Days)
       </h2>
 
-      {/* Tarjetas de Resumen */}
       <div className="uptime-stats-grid">
         <div className="uptime-card reveal">
           <span className="uptime-value">{uptimeData.uptimePercent.toFixed(2)}%</span>
-          <span className="uptime-label">Disponibilidad Global</span>
+          <span className="uptime-label">Global Availability</span>
         </div>
         <div className="uptime-card reveal" style={{ transitionDelay: "0.1s" }}>
           <span className="uptime-value">{uptimeData.downtime}</span>
           <span className="uptime-label">Downtime</span>
-          <span className="uptime-subtext">({uptimeData.outages} interrupciones registradas)</span>
+          <span className="uptime-subtext">({uptimeData.outages} recorded outages)</span>
         </div>
       </div>
 
-      {/* Tabla de Logs */}
       <div className="glass-table-wrap reveal" style={{ transitionDelay: "0.2s" }}>
         <table className="glass-table">
           <thead>
             <tr>
-              <th>ESTADO</th>
-              <th>DESDE</th>
-              <th>HASTA</th>
-              <th>DURACIÓN</th>
+              <th>STATUS</th>
+              <th>FROM</th>
+              <th>TO</th>
+              <th>DURATION</th>
             </tr>
           </thead>
           <tbody>
@@ -54,4 +52,4 @@ const UptimeSummary = ({ uptimeData }) => {
   );
 };
 
-export default UptimeSummary;
+export default Uptime;

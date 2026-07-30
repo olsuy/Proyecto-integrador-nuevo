@@ -7,17 +7,17 @@ const SystemLogs = ({ uptimeData }) => {
   return (
     <section style={{ padding: "0 8vw 100px 8vw" }}>
       <h2 className="reveal" style={{ fontSize: "24px", marginBottom: "30px", borderBottom: "1px solid rgba(86, 216, 255, 0.15)", paddingBottom: "15px" }}>
-        Registro de Conexión e Incidencias
+        Connection & Incident Logs
       </h2>
 
       <div className="glass-table-wrap reveal">
         <table className="glass-table">
           <thead>
             <tr>
-              <th>ESTADO</th>
-              <th>DESDE</th>
-              <th>HASTA</th>
-              <th>DURACIÓN</th>
+              <th>STATUS</th>
+              <th>FROM</th>
+              <th>TO</th>
+              <th>DURATION</th>
             </tr>
           </thead>
           <tbody>
