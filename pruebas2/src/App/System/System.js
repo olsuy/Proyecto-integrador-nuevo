@@ -136,15 +136,22 @@ function System() {
 
         {/* ===================== DIGITAL TWIN ===================== */}
         <section style={{ padding: "0 8vw 60px 8vw" }}>
-          <div className="digital-twin-card reveal">
+          
+          {/* Añadimos position: "relative" directamente aquí para anclar la tarjeta */}
+          <div className="digital-twin-card reveal" style={{ position: "relative" }}>
+            
+            {/* EL STATUS DEBE ESTAR EXACTAMENTE AQUÍ ADENTRO */}
+            <ServerStatus checks={checks} />
+
             <img src={stationGiant} alt="Control Station" className="digital-twin-image" />
+            
             <div className="digital-twin-overlay">
               <h3>Active Facility Monitoring</h3>
               <p>Stable connection with all logic controllers.</p>
             </div>
           </div>
+          
         </section>
-
         <PageSpeed speedData={speedData} />
         <Uptime uptimeData={uptimeData} />
         <SystemLogs uptimeData={uptimeData} />
