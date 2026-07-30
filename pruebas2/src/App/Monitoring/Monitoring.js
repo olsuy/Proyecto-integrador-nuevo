@@ -3,31 +3,35 @@ import "./Monitoring.css";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 
-const CHANNEL_ID = "3433907";
-const READ_API_KEY = "TJEETPIU13DNG5BG";
-
 const Monitoring = () => {
-  const [data, setData] = useState(null);
+  const [elevadorA, setElevadorA] = useState([]);
+  const [elevadorB, setElevadorB] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
-    const fetchThingSpeakData = async () => {
+    const fetchDatabaseData = async () => {
       const startTime = Date.now();
 
       try {
-        const response = await fetch(
-          `https://api.thingspeak.com/channels/${CHANNEL_ID}/feeds/last.json?api_key=${READ_API_KEY}`
-        );
+        // Aquí debes colocar la URL de tu API local que ejecuta "SELECT * FROM vista_dashboard_comparativo"
+        const response = await fetch("http://localhost:3000/api/dashboard");
 
         if (!response.ok) {
-          throw new Error("No hay info de la API");
+          throw new Error("No hay conexión con la base de datos");
         }
 
         const result = await response.json();
-        setData(result);
+        
+        // Separamos los datos por elevador basándonos en tu base de datos SQL
+        const elevA = result.filter((item) => item.nombre_elevador === 'Elevador A');
+        const elevB = result.filter((item) => item.nombre_elevador === 'Elevador B');
+        
+        setElevadorA(elevA);
+        setElevadorB(elevB);
+        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -40,7 +44,7 @@ const Monitoring = () => {
       }
     };
 
-    fetchThingSpeakData();
+    fetchDatabaseData();
   }, []);
 
   if (loading) {
@@ -50,7 +54,7 @@ const Monitoring = () => {
         <div className="monitoring-overlay show">
           <div className="monitoring-loader-card">
             <div className="monitoring-loader-ring"></div>
-            <p>Loading data...</p>
+            <p>Cargando datos del PLC...</p>
           </div>
         </div>
       </>
@@ -62,64 +66,93 @@ const Monitoring = () => {
       <>
         <Nav />
         <div className="monitoring-container">
-          <h1>Monitoring</h1>
+          <h1>Dashboard Comparativo Técnico</h1>
           <p>Error: {error}</p>
         </div>
       </>
     );
   }
 
+  // Función auxiliar para buscar el valor correcto de la variable (ya sea texto, numérico o booleano)
+  const getVariableValue = (dataArray, variableName) => {
+    const variable = dataArray.find((v) => v.nombre_variable === variableName);
+    if (!variable) {
+      return "N/A";
+    }
+    if (variable.valor_texto !== null) {
+      return variable.valor_texto;
+    }
+    if (variable.valor_numerico !== null) {
+      return variable.valor_numerico;
+    }
+    if (variable.valor_booleano !== null) {
+      if (variable.valor_booleano === 1) {
+        return "Activo";
+      } else {
+        return "Inactivo";
+      }
+    }
+    return "N/A";
+  };
+
   return (
     <>
       <Nav />
       <div className="monitoring-container">
-        <h1>Monitoring</h1>
-        <p>Powered by ThingSpeak</p>
+        <h1>Dashboard Comparativo Técnico</h1>
+        <p>Monitoreo en tiempo real - Base de Datos Local</p>
 
-        <div className="monitoring-grid">
-          <div className="monitoring-card">
-            <h3>Current Floor</h3>
-            <p>{data?.field1 || "N/A"}</p>
+        <div className="monitoring-comparison-wrapper">
+          
+          {/* Columna Elevador A */}
+          <div className="monitoring-column">
+            <h2>Elevador A (Principal)</h2>
+            <div className="monitoring-grid">
+              <div className="monitoring-card">
+                <h3>Posición Actual</h3>
+                <p>{getVariableValue(elevadorA, 'posicion_actual')} Piso</p>
+              </div>
+              <div className="monitoring-card">
+                <h3>Estado Puertas</h3>
+                <p>{getVariableValue(elevadorA, 'estado_puertas')}</p>
+              </div>
+              <div className="monitoring-card">
+                <h3>Tiempo de Recorrido</h3>
+                <p>{getVariableValue(elevadorA, 'tiempo_recorrido')} s</p>
+              </div>
+              <div className="monitoring-card">
+                <h3>Modo Mantenimiento</h3>
+                <p>{getVariableValue(elevadorA, 'modo_mantenimiento')}</p>
+              </div>
+            </div>
           </div>
 
-          <div className="monitoring-card">
-            <h3>Direction</h3>
-            <p>{data?.field2 || "N/A"}</p>
+          {/* Columna Elevador B */}
+          <div className="monitoring-column">
+            <h2>Elevador B (Secundario)</h2>
+            <div className="monitoring-grid">
+              <div className="monitoring-card">
+                <h3>Posición Actual</h3>
+                <p>{getVariableValue(elevadorB, 'posicion_actual')} Piso</p>
+              </div>
+              <div className="monitoring-card">
+                <h3>Estado Puertas</h3>
+                <p>{getVariableValue(elevadorB, 'estado_puertas')}</p>
+              </div>
+              <div className="monitoring-card">
+                <h3>Tiempo de Recorrido</h3>
+                <p>{getVariableValue(elevadorB, 'tiempo_recorrido')} s</p>
+              </div>
+              <div className="monitoring-card">
+                <h3>Modo Mantenimiento</h3>
+                <p>{getVariableValue(elevadorB, 'modo_mantenimiento')}</p>
+              </div>
+            </div>
           </div>
 
-          <div className="monitoring-card">
-            <h3>Speed</h3>
-            <p>{data?.field3 || "N/A"}</p>
-          </div>
-
-          <div className="monitoring-card">
-            <h3>Door Status</h3>
-            <p>{data?.field4 || "N/A"}</p>
-          </div>
-
-          <div className="monitoring-card">
-            <h3>Active Alarms</h3>
-            <p>{data?.field5 || "N/A"}</p>
-          </div>
-
-          <div className="monitoring-card">
-            <h3>Travel Time</h3>
-            <p>{data?.field6 || "N/A"}</p>
-          </div>
-
-          <div className="monitoring-card">
-            <h3>Elevator Status</h3>
-            <p>{data?.field7 || "N/A"}</p>
-          </div>
-
-          <div className="monitoring-card">
-            <h3>Last Update</h3>
-            <p>{data?.field8 || data?.created_at || "N/A"}</p>
-          </div>
         </div>
         <Footer/>
       </div>
-      
     </>
   );
 };
