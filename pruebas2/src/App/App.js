@@ -64,7 +64,7 @@ function App() {
         />
 
         <Route
-          path="/plc_scada"
+          path="/plc-scada"
           element={
             <ProtectedRoute allowedRoles={[6]}>
               <PLC_SCADA />
