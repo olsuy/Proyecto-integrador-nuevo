@@ -1,4 +1,3 @@
-
 .plc-scada {
   --bg-main: #0f1115;
   --bg-nav: #1d1d1d;
@@ -660,68 +659,8 @@
   }
 }
 
-.dashboard-card {
-  position: relative;
-  z-index: 1;
-  background: var(--grey-01);
-  border: 1px solid rgba(46, 167, 255, 0.12);
-  border-radius: 18px;
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(46, 167, 255, 0.4);
-  box-shadow: 0 20px 40px rgba(0, 168, 255, 0.12);
-}
-
-.card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.card-icon {
-  font-size: 22px;
-}
-
-.card-label {
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-.card-value {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 6px;
-  background: var(--grey-02);
-  border-radius: 100px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--blue-primary),
-    var(--blue-bright)
-  );
-  box-shadow: 0 0 12px rgba(0, 168, 255, 0.6);
-  transition: width 0.6s ease;
-}
+/* Estilos de la card individual (.dashboard-card y sus hijos)
+   ahora viven en DashboardCard/DashboardCard.css */
 
 /* =========================================================
    INDUSTRY SECTION
@@ -735,73 +674,8 @@
   margin-top: 22px;
 }
 
-.industry-card-meta {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(46, 167, 255, 0.12);
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  color: var(--text-secondary);
-}
-
-.industry-card-meta strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.industry-card {
-  background: linear-gradient(160deg, var(--grey-01) 0%, #171a20 100%);
-  border: 1px solid rgba(46, 167, 255, 0.1);
-  border-radius: 20px;
-  padding: 34px 28px;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.industry-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(0, 168, 255, 0.5);
-  box-shadow: 0 25px 50px rgba(0, 168, 255, 0.15);
-}
-
-.industry-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.industry-icon {
-  font-size: 30px;
-  color: var(--blue-bright);
-  display: inline-block;
-  text-shadow: 0 0 20px rgba(0, 168, 255, 0.6);
-}
-
-.industry-status {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--green);
-  background: rgba(24, 255, 114, 0.1);
-  border: 1px solid rgba(24, 255, 114, 0.25);
-  border-radius: 100px;
-  padding: 5px 12px;
-}
-
-.industry-card h3 {
-  font-size: 20px;
-  margin: 0 0 12px 0;
-}
-
-.industry-card p {
-  color: var(--text-secondary);
-  line-height: 1.6;
-  font-size: 14px;
-}
+/* Estilos de la card individual (.industry-card y sus hijos)
+   ahora viven en IndustryCard/IndustryCard.css */
 
 /* =========================================================
    HISTORICAL EVENTS

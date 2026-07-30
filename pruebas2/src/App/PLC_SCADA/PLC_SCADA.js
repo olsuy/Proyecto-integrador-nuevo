@@ -1,14 +1,52 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
+import DashboardCard from "./DashboardCard/DashboardCard";
+import IndustryCard from "./Industrycard/Industrycard";
 import "./PLC_SCADA.css";
 import elevatorImg from "./assets/elevators.jpeg";
+import { useNavigate } from "react-router-dom";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FLOORS = 20;
+const DASHBOARD_CARDS = [
+  {
+    id: "temperature",
+    icon: "🌡",
+    label: "Temperature",
+    getValue: (data) => `${data.temperature}°C`,
+    getPercent: (data) => (data.temperature / 30) * 100,
+    getStatusClass: (data) => (data.temperature > 25 ? "dot-yellow" : "dot-green"),
+  },
+  {
+    id: "motors",
+    icon: "⚙",
+    label: "Motor Speed",
+    getValue: (data) => `${data.motors}%`,
+    getPercent: (data) => data.motors,
+    getStatusClass: () => "dot-green",
+  },
+  {
+    id: "energy",
+    icon: "⚡",
+    label: "Power Consumption",
+    getValue: (data) => `${data.energy}%`,
+    getPercent: (data) => data.energy,
+    getStatusClass: () => "dot-green",
+  },
+  {
+    id: "doors",
+    icon: "🚪",
+    label: "Door Cycle Health",
+    getValue: (data) => `${data.doors}%`,
+    getPercent: (data) => data.doors,
+    getStatusClass: () => "dot-green",
+  },
+];
 
 const INDUSTRY_CARDS = [
   {
@@ -49,6 +87,7 @@ const HISTORY_FILTERS = ["All", "Alarms", "Faults", "Communication"];
 
 const HISTORY_EVENTS = [
   {
+    id: "evt-1",
     time: "14:32:08",
     type: "Alarm",
     description: "Temperature exceeded nominal threshold (26°C)",
@@ -56,6 +95,7 @@ const HISTORY_EVENTS = [
     badgeClass: "badge-resolved",
   },
   {
+    id: "evt-2",
     time: "12:05:41",
     type: "Communication",
     description: "Brief latency spike on PLC-to-server link",
@@ -63,6 +103,7 @@ const HISTORY_EVENTS = [
     badgeClass: "badge-resolved",
   },
   {
+    id: "evt-3",
     time: "09:18:57",
     type: "Fault",
     description: "Door cycle sensor reported delayed close",
@@ -70,6 +111,7 @@ const HISTORY_EVENTS = [
     badgeClass: "badge-warning",
   },
   {
+    id: "evt-4",
     time: "07:44:12",
     type: "Alarm",
     description: "Motor load briefly above 98% during peak traffic",
@@ -77,6 +119,7 @@ const HISTORY_EVENTS = [
     badgeClass: "badge-resolved",
   },
   {
+    id: "evt-5",
     time: "Yesterday",
     type: "Communication",
     description: "Scheduled SCADA server sync completed",
@@ -84,6 +127,7 @@ const HISTORY_EVENTS = [
     badgeClass: "badge-info",
   },
   {
+    id: "evt-6",
     time: "Yesterday",
     type: "Fault",
     description: "Vibration signature flagged for review, cleared on recheck",
@@ -91,6 +135,59 @@ const HISTORY_EVENTS = [
     badgeClass: "badge-resolved",
   },
 ];
+
+function HistoryEvents({ events, filters = HISTORY_FILTERS }) {
+  const [historyFilter, setHistoryFilter] = useState("All");
+  const listRef = useRef(null);
+
+  const filteredHistory = useMemo(() => {
+    if (historyFilter === "All") return events;
+    return events.filter((event) => {
+      if (historyFilter === "Alarms") return event.type === "Alarm";
+      if (historyFilter === "Faults") return event.type === "Fault";
+      return event.type === historyFilter;
+    });
+  }, [events, historyFilter]);
+
+  useEffect(() => {
+    const root = listRef.current;
+    if (!root) return;
+    const rows = root.querySelectorAll(".reveal");
+    rows.forEach((el) => el.classList.add("is-revealed"));
+  }, [filteredHistory]);
+
+  return (
+    <>
+      <div className="history-filters" role="group" aria-label="Filter historical events">
+        {filters.map((filter) => (
+          <button
+            key={filter}
+            type="button"
+            className={`history-filter ${historyFilter === filter ? "active" : ""}`}
+            aria-pressed={historyFilter === filter}
+            onClick={() => setHistoryFilter(filter)}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
+
+      <div className="history-list" ref={listRef}>
+        {filteredHistory.map((event) => (
+          
+          <div className="history-row reveal" key={event.id}>
+            <span className="history-time">{event.time}</span>
+            <span className="history-type">{event.type}</span>
+            <span className="history-desc">{event.description}</span>
+            <span className={`history-badge ${event.badgeClass}`}>
+              {event.badge}
+            </span>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
 
 function PLC_SCADA() {
   // ================= REFS =================
@@ -127,7 +224,6 @@ function PLC_SCADA() {
   // ================= STATES =================
   const [currentFloor, setCurrentFloor] = useState(TOTAL_FLOORS);
   const [doorsOpen, setDoorsOpen] = useState(false);
-  const [historyFilter, setHistoryFilter] = useState("All");
 
   const [systemData, setSystemData] = useState({
     temperature: 24,
@@ -373,15 +469,6 @@ rootMargin:"0px 0px -10% 0px"}
 
   const hasActiveAlarm = systemData.temperature > 25;
 
-  const filteredHistory =
-    historyFilter === "All"
-      ? HISTORY_EVENTS
-      : HISTORY_EVENTS.filter((event) => {
-          if (historyFilter === "Alarms") return event.type === "Alarm";
-          if (historyFilter === "Faults") return event.type === "Fault";
-          return event.type === historyFilter;
-        });
-
   return (
     <>
       <Nav />
@@ -580,69 +667,16 @@ rootMargin:"0px 0px -10% 0px"}
 
           <div className="dashboard-cards">
             <div className="dashboard-flow-line" ref={dashboardLineRef}></div>
-            <div className="dashboard-card reveal">
-              <div className="card-top">
-                <span className="card-icon">🌡</span>
-                <span
-                  className={`dot ${
-                    systemData.temperature > 25 ? "dot-yellow" : "dot-green"
-                  }`}
-                ></span>
-              </div>
-              <span className="card-label">Temperature</span>
-              <span className="card-value">{systemData.temperature}°C</span>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${(systemData.temperature / 30) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="dashboard-card reveal">
-              <div className="card-top">
-                <span className="card-icon">⚙</span>
-                <span className="dot dot-green"></span>
-              </div>
-              <span className="card-label">Motor Speed</span>
-              <span className="card-value">{systemData.motors}%</span>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${systemData.motors}%` }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="dashboard-card reveal">
-              <div className="card-top">
-                <span className="card-icon">⚡</span>
-                <span className="dot dot-green"></span>
-              </div>
-              <span className="card-label">Power Consumption</span>
-              <span className="card-value">{systemData.energy}%</span>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${systemData.energy}%` }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="dashboard-card reveal">
-              <div className="card-top">
-                <span className="card-icon">🚪</span>
-                <span className="dot dot-green"></span>
-              </div>
-              <span className="card-label">Door Cycle Health</span>
-              <span className="card-value">{systemData.doors}%</span>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${systemData.doors}%` }}
-                ></div>
-              </div>
-            </div>
+            {DASHBOARD_CARDS.map((card) => (
+              <DashboardCard
+                key={card.id}
+                icon={card.icon}
+                label={card.label}
+                value={card.getValue(systemData)}
+                percent={card.getPercent(systemData)}
+                statusClass={card.getStatusClass(systemData)}
+              />
+            ))}
           </div>
         </section>
 
@@ -653,17 +687,7 @@ rootMargin:"0px 0px -10% 0px"}
 
           <div className="industry-grid">
             {INDUSTRY_CARDS.map((card) => (
-              <div className="industry-card reveal" key={card.title}>
-                <div className="industry-card-top">
-                  <span className="industry-icon">{card.icon}</span>
-                  <span className="industry-status">{card.status}</span>
-                </div>
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
-                <div className="industry-card-meta">
-                  {card.metaLabel}: <strong>{card.metaValue}</strong>
-                </div>
-              </div>
+              <IndustryCard key={card.title} {...card} />
             ))}
           </div>
         </section>
@@ -673,32 +697,7 @@ rootMargin:"0px 0px -10% 0px"}
           <span className="eyebrow">04 / Historical Events</span>
           <h2>Recent Alarms &amp; Events</h2>
 
-          <div className="history-filters" role="group" aria-label="Filter historical events">
-            {HISTORY_FILTERS.map((filter) => (
-              <button
-                key={filter}
-                type="button"
-                className={`history-filter ${historyFilter === filter ? "active" : ""}`}
-                aria-pressed={historyFilter === filter}
-                onClick={() => setHistoryFilter(filter)}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-
-          <div className="history-list">
-            {filteredHistory.map((event, index) => (
-              <div className="history-row reveal" key={`${event.time}-${index}`}>
-                <span className="history-time">{event.time}</span>
-                <span className="history-type">{event.type}</span>
-                <span className="history-desc">{event.description}</span>
-                <span className={`history-badge ${event.badgeClass}`}>
-                  {event.badge}
-                </span>
-              </div>
-            ))}
-          </div>
+          <HistoryEvents events={HISTORY_EVENTS} filters={HISTORY_FILTERS} />
         </section>
 
         {/* ===================== CTA FINAL ===================== */}
@@ -713,6 +712,7 @@ rootMargin:"0px 0px -10% 0px"}
             PLC control, SCADA supervision, alarm history, and AI diagnostics
             in one industrial platform, built for daily operational use.
           </p>
+          
           <button className="cta-button reveal">Open Full Dashboard</button>
         </section>
       </div>
