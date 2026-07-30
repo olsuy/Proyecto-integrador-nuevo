@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import "./HistoryEvents.css";
+
 
 const HISTORY_FILTERS = ["All", "Alarms", "Faults", "Communication"];
 

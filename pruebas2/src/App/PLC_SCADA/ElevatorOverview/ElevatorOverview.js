@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import elevatorImg from "../assets/elevators.jpeg";
-import "./ElevatorOverview.css";
+
 
 gsap.registerPlugin(ScrollTrigger);
 

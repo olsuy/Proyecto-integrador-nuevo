@@ -3,7 +3,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DashboardCard from "../DashboardCard/DashboardCard";
 import { Building, ArrowUpDown, Gauge, DoorOpen } from 'lucide-react';
-import "./LiveVariables.css";
 
 gsap.registerPlugin(ScrollTrigger);
 

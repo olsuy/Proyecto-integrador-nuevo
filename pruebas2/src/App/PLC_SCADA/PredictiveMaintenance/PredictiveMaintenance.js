@@ -1,7 +1,7 @@
 import React from "react";
 import IndustryCard from "../Industrycard/Industrycard";
 import { Activity, Zap, Wifi, ShieldAlert } from 'lucide-react';
-import "./PredictiveMaintenance.css";
+
 
 const INDUSTRY_CARDS = [
   { title: "Predictive Maintenance", text: "Estimated remaining useful life based on motor load and duty-cycle trends.", icon: <Activity size={28} />, status: "142 DAYS LEFT", metaLabel: "Next Inspection", metaValue: "Mar 14, 2026" },
