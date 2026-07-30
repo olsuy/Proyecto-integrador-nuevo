@@ -5,17 +5,27 @@
   min-height: 100vh;
   background: #081526;
   color: white;
-  padding: 40px;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.monitoring-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+.monitoring-header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-.monitoring-container p {
-  margin-bottom: 20px;
-  color: #b8c7d9;
+.monitoring-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 5px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.monitoring-header p {
+  color: #8ab4f8;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 /* =========================================
@@ -25,10 +35,10 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  margin-top: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* En pantallas grandes, colocar uno al lado del otro */
 @media (min-width: 992px) {
   .monitoring-comparison-wrapper {
     flex-direction: row;
@@ -37,73 +47,145 @@
 
 .monitoring-column {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  background: rgba(10, 24, 44, 0.6);
+  border: 1px solid rgba(23, 149, 232, 0.2);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-.monitoring-column h2 {
+.monitoring-column-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #5bb7ff;
   border-bottom: 2px solid rgba(23, 149, 232, 0.3);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
+.status-indicator {
+  font-size: 0.9rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(65, 217, 111, 0.15);
+  color: #41d96f;
+  border: 1px solid #41d96f;
+  letter-spacing: 1px;
+}
+
 /* =========================================
-   GRID Y TARJETAS (Estilo Técnico)
+   GRID Y TARJETAS INTUITIVAS
    ========================================= */
 .monitoring-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
 .monitoring-card {
-  background: rgba(10, 24, 44, 0.9);
-  border: 1px solid rgba(0, 140, 255, 0.2);
-  border-left: 4px solid #1795e8; /* Acento técnico lateral */
-  border-radius: 12px; /* Ligeramente más cuadrado que antes */
+  background: rgba(8, 22, 35, 0.9);
+  border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .monitoring-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(23, 149, 232, 0.15);
-  border: 1px solid rgba(0, 140, 255, 0.5);
-  border-left: 4px solid #5bb7ff;
+  transform: translateY(-4px);
+}
+
+/* Acento lateral por defecto (Azul) */
+.monitoring-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #1795e8;
 }
 
 .monitoring-card h3 {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  color: #8ab4f8;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  color: #b5b5b5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .monitoring-card p {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: #ffffff;
   margin: 0;
-  font-family: 'Courier New', Courier, monospace; /* Tipografía para simular lecturas de sensores */
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.unit {
+  font-size: 1rem;
+  color: #8ab4f8;
+  margin-left: 5px;
 }
 
 /* =========================================
-   OVERLAY Y LOADER (Sin modificaciones para no afectar botones o interfaz base)
+   CÓDIGOS DE COLORES (ESTADOS)
+   ========================================= */
+/* Estado: Alerta / Peligro / Mantenimiento */
+.card-alert::before {
+  background: #ff4d4f;
+}
+
+.card-alert {
+  border: 1px solid rgba(255, 77, 79, 0.3);
+  box-shadow: 0 0 15px rgba(255, 77, 79, 0.15);
+}
+
+.card-alert h3 {
+  color: #ff4d4f;
+}
+
+.card-alert p {
+  color: #ff4d4f;
+}
+
+/* Estado: Seguro / Cerrado / Ok */
+.card-safe::before {
+  background: #41d96f;
+}
+
+.card-safe {
+  border: 1px solid rgba(65, 217, 111, 0.3);
+}
+
+/* Estado: Precaución / Abierto */
+.card-warning::before {
+  background: #faad14;
+}
+
+.card-warning {
+  border: 1px solid rgba(250, 173, 20, 0.3);
+}
+
+.card-warning h3 {
+  color: #faad14;
+}
+
+/* =========================================
+   OVERLAY Y LOADER (Sin modificaciones)
    ========================================= */
 .monitoring-overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(
-    45deg,
-    rgb(16, 137, 211) 0%,
-    rgb(18, 177, 209) 100%
-  );
+  background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -160,6 +242,7 @@
     opacity: 0;
     transform: translateY(12px) scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
