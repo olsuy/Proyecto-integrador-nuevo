@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./Industrycard.css";
 function IndustryCard({ title, text, icon, status, metaLabel, metaValue }) {
   return (
