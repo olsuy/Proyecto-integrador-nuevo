@@ -132,7 +132,6 @@ function System() {
         {/* ===================== MODULES ===================== */}
         <Indicators speedData={speedData} uptimeData={uptimeData} />
         
-        <ServerStatus checks={checks} />
 
         {/* ===================== DIGITAL TWIN ===================== */}
         <section style={{ padding: "0 8vw 60px 8vw" }}>
