@@ -1,6 +1,6 @@
 import React from "react";
 import { Siren, ArrowRight } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"; // <-- Asegúrate de importar NavLink
 
 export default function Card3() {
   return (
@@ -12,7 +12,7 @@ export default function Card3() {
       <h3>Active Alarms</h3>
       <p>View current alarms and fault events for fast response and diagnostics.</p>
 
-      {/* Se agregó NavLink y el hash #alarms */}
+      {/* BORRA la etiqueta <a> y usa solo NavLink */}
       <NavLink to="/plc-scada#alarms" className="card-link">
         View <ArrowRight size={18} />
       </NavLink>

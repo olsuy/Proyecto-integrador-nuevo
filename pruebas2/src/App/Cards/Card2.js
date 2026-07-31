@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowDownUp, ArrowRight } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"; // <-- Asegúrate de importar NavLink
 
 export default function Card2() {
   return (
@@ -12,7 +12,7 @@ export default function Card2() {
       <h3>Elevator Position</h3>
       <p>Track the current floor location and movement status of each elevator.</p>
 
-      {/* Se agregó NavLink y el hash #position */}
+      {/* BORRA la etiqueta <a> y usa solo NavLink */}
       <NavLink to="/plc-scada#position" className="card-link">
         View <ArrowRight size={18} />
       </NavLink>
