@@ -30,7 +30,7 @@ function App() {
         <Route
           path="/elevators"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={[6, 8 ,9]}>
               <Elevators />
             </ProtectedRoute>
           }
@@ -39,7 +39,7 @@ function App() {
         <Route
           path="/monitoring"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={[6, 7,9]}>
               <Monitoring />
             </ProtectedRoute>
           }
@@ -48,7 +48,7 @@ function App() {
         <Route
           path="/support"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={[6, 7,8,9]}>
               <Support />
             </ProtectedRoute>
           }
@@ -66,7 +66,7 @@ function App() {
         <Route
           path="/plc-scada"
           element={
-            <ProtectedRoute allowedRoles={[6]}>
+            <ProtectedRoute allowedRoles={[6,8,9]}>
               <PLC_SCADA />
             </ProtectedRoute>
           }

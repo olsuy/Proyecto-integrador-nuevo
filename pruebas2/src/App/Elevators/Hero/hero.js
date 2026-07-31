@@ -7,8 +7,9 @@ import PanelInfo from "../panel/panel.js";
 
 function Hero() {
   return (
+    
     <section className="hero" style={{ backgroundImage: `url(${fondo})` }}>
-      
+      <Nav/>
       <div className="hero-overlay">
         
         <div className="hleft">

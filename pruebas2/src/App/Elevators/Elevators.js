@@ -19,10 +19,10 @@ function Elevators() {
   }, []);
 
   return (
-    // Agregamos la clase "elevators-wrapper" aquí
+    
     <div className="elevators-wrapper">
       
-      <Nav/>
+      
       {loading && (
         <div className="elevators-overlay show">
           <div className="elevators-loader-card">

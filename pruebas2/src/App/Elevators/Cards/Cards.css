@@ -1,5 +1,6 @@
 .card {
-    flex: 0 1 220px; /* no crece, puede encogerse, base de 220px */
+    flex: 0 1 220px;
+    box-sizing: border-box; /* padding y border ahora se incluyen DENTRO de los 220px */
     min-width: 160px;
     min-height: 135px;
     background: #081623;

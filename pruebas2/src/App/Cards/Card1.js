@@ -1,5 +1,6 @@
 import React from "react";
 import { SquareActivity, ArrowRight } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 export default function Card1() {
   return (
@@ -11,9 +12,11 @@ export default function Card1() {
       <h3>Current Status</h3>
       <p>Real-time overview of elevator operating condition and system activity.</p>
 
-      <a href="#" className="card-link">
-        View <ArrowRight size={18} />
-      </a>
+      <NavLink>
+        <a className="card-link">
+          View <ArrowRight size={18} />
+        </a>
+      </NavLink>
     </article>
   );
 }
