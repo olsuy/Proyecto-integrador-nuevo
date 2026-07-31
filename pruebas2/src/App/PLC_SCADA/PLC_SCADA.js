@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom"; // <-- AGREGAMOS ESTO
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import "./PLC_SCADA.css";
@@ -12,9 +13,24 @@ import HistoryEvents from "./HistoryEvents/HistoryEvents";
 
 function PLC_SCADA() {
   const containerRef = useRef(null);
+  const location = useLocation(); // <-- AGREGAMOS EL HOOK PARA EL SCROLL
   
   const [systemData, setSystemData] = useState({});
   const [plcStatus] = useState({ system: "ONLINE", plc: "RUNNING", network: "STABLE" });
+
+  // ================= SCROLL AUTOMÁTICO =================
+  // Este efecto detecta si la URL trae un # y baja automáticamente
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.slice(1);
+      const element = document.getElementById(targetId);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100); // Pequeño retraso para dar tiempo a que los módulos carguen
+      }
+    }
+  }, [location]);
 
   // ================= DYNAMIC SCADA DATA (ThingSpeak API) =================
   useEffect(() => {
@@ -64,7 +80,7 @@ function PLC_SCADA() {
 
     targets.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [systemData]); // Se actualiza si llegan datos nuevos
+  }, [systemData]); 
 
   return (
     <>
@@ -77,7 +93,7 @@ function PLC_SCADA() {
         <PredictiveMaintenance />
         <HistoryEvents />
 
-        {/* CTA FINAL (puede quedarse aquí por ser muy corto) */}
+        {/* CTA FINAL */}
         <section className="cta-final">
           <span className="eyebrow reveal">05 / Full Access</span>
           <h2 className="reveal">
@@ -91,7 +107,6 @@ function PLC_SCADA() {
         <Footer />
         
       </div>
-      
     </>
   );
 }

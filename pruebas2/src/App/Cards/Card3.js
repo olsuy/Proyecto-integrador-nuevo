@@ -1,5 +1,6 @@
 import React from "react";
 import { Siren, ArrowRight } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 export default function Card3() {
   return (
@@ -11,9 +12,10 @@ export default function Card3() {
       <h3>Active Alarms</h3>
       <p>View current alarms and fault events for fast response and diagnostics.</p>
 
-      <a href="#" className="card-link">
+      {/* Se agregó NavLink y el hash #alarms */}
+      <NavLink to="/plc-scada#alarms" className="card-link">
         View <ArrowRight size={18} />
-      </a>
+      </NavLink>
     </article>
   );
 }

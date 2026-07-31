@@ -5,6 +5,7 @@ import "./Inicio.css";
 import slide1 from "./Images/slide1.png";
 import slide2 from "./Images/slide2.jpg";
 import slide3 from "./Images/slide3.jpg";
+import { NavLink } from "react-router-dom";
 
 const slides = [
   {
@@ -108,8 +109,10 @@ function Inicio() {
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
-          >
+          ><NavLink to ="monitoring">
             Explore Dashboard
+          </NavLink>
+            
             <span>→</span>
           </motion.button>
         </div>

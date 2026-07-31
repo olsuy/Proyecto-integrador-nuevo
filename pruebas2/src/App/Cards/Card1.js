@@ -12,7 +12,7 @@ export default function Card1() {
       <h3>Current Status</h3>
       <p>Real-time overview of elevator operating condition and system activity.</p>
 
-      <NavLink to="/plc-scada" className={({ isActive }) => isActive ? "active-link" : ""}>
+      <NavLink to="/plc-scada#position" className="card-link">
         <a className="card-link">
           View <ArrowRight size={18} />
         </a>
