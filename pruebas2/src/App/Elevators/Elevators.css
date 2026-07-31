@@ -50,21 +50,43 @@
   animation: spin 0.8s linear infinite;
 }
 
-/* Agrega esto al final de Elevators.css */
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Elimina el cuadro blanco a la derecha */
-  background-color: #081526; /* Evita los destellos o huecos blancos al fondo */
-}
-
+/* Asegura que el contenedor de las tarjetas use un grid perfectamente centrado */
+/* Contenedor principal de la vista Elevators */
 .elevators-wrapper {
   background-color: #081526;
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Contenedor para alinear y centrar las tarjetas o secciones internas (Hero, Cards, Status Cards) */
+.elevators-wrapper main,
+.elevators-content,
+.elevators-comparison-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Si usas una cuadrícula (grid) para las tarjetas dentro de esta vista */
+.elevators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);
