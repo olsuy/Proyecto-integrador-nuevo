@@ -105,16 +105,17 @@ function Inicio() {
           >
             {slides[current].description}
           </motion.p>
-
+          <NavLink to ="monitoring">
           <motion.button
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
-          ><NavLink to ="monitoring">
+          >
             Explore Dashboard
-          </NavLink>
+          
             
             <span>→</span>
           </motion.button>
+          </NavLink>
         </div>
       </div>
 

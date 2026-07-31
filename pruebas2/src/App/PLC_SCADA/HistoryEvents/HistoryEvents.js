@@ -33,7 +33,7 @@ const HistoryEvents = () => {
   }, [filteredHistory]);
 
   return (
-    <section className="history-section">
+    <section id="dashboard" className="history-section">
       <span className="eyebrow">04 / Historical Events</span>
       <h2>Recent Alarms &amp; Events</h2>
       

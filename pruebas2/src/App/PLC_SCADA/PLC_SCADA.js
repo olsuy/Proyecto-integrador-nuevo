@@ -19,19 +19,23 @@ function PLC_SCADA() {
   const [plcStatus] = useState({ system: "ONLINE", plc: "RUNNING", network: "STABLE" });
 
   // ================= SCROLL AUTOMÁTICO =================
-  // Este efecto detecta si la URL trae un # y baja automáticamente
   useEffect(() => {
     if (location.hash) {
       const targetId = location.hash.slice(1);
-      const element = document.getElementById(targetId);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" });
-        }, 100); // Pequeño retraso para dar tiempo a que los módulos carguen
-      }
+      
+      // Creamos una función que busca el elemento y hace scroll
+      const scrollToSection = () => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      };
+
+      // Le damos 500 milisegundos a React y GSAP para que terminen de armar 
+      // la página antes de intentar bajar.
+      setTimeout(scrollToSection, 500); 
     }
   }, [location]);
-
   // ================= DYNAMIC SCADA DATA (ThingSpeak API) =================
   useEffect(() => {
     const fetchThingSpeakData = async () => {

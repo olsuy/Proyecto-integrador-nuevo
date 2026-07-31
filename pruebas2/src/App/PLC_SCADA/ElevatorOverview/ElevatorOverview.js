@@ -92,7 +92,7 @@ const ElevatorOverview = ({ systemData, plcStatus }) => {
   }, [doorsOpen]);
 
   return (
-    <section className="elevator-experience" ref={sectionRef}>
+    <section id="position" className="elevator-experience" ref={sectionRef}>
       <div className="elevator-sticky">
         <div className="elevator-info reveal reveal-left">
           <span className="eyebrow">01 / System Overview</span>

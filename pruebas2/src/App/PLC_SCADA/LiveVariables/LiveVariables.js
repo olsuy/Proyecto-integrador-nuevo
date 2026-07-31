@@ -49,7 +49,7 @@ const LiveVariables = ({ systemData }) => {
   }, []);
 
   return (
-    <section className="scada-dashboard" ref={dashboardRef}>
+    <section id="dashboard" className="scada-dashboard" ref={dashboardRef}>
       <span className="eyebrow">02 / Real-Time Monitoring</span>
       <h2>Live Process Variables</h2>
       <div className="dashboard-cards">
