@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom"; // <-- AGREGAMOS ESTO
+import { NavLink, useLocation } from "react-router-dom"; // <-- AGREGAMOS ESTO
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import "./PLC_SCADA.css";
@@ -122,7 +122,7 @@ function PLC_SCADA() {
           <p className="reveal">
             PLC control, SCADA supervision, alarm history, and AI diagnostics in one industrial platform, built for daily operational use.
           </p>
-          <button className="cta-button reveal">Open Full Dashboard</button>
+          <button className="cta-button reveal"><NavLink to ="/monitoring">Open Full Dashboard</NavLink></button>
         </section>
         <Footer />
         
