@@ -18,22 +18,38 @@ function PLC_SCADA() {
   const [systemData, setSystemData] = useState({});
   const [plcStatus] = useState({ system: "ONLINE", plc: "RUNNING", network: "STABLE" });
 
-  // ================= SCROLL AUTOMÁTICO =================
+  // ================= SCROLL AUTOMÁTICO (A PRUEBA DE GSAP) =================
   useEffect(() => {
     if (location.hash) {
       const targetId = location.hash.slice(1);
-      
-      // Creamos una función que busca el elemento y hace scroll
-      const scrollToSection = () => {
-        const element = document.getElementById(targetId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      };
+      let attempts = 0;
 
-      // Le damos 500 milisegundos a React y GSAP para que terminen de armar 
-      // la página antes de intentar bajar.
-      setTimeout(scrollToSection, 500); 
+      const checkAndScroll = setInterval(() => {
+        const element = document.getElementById(targetId);
+        attempts++;
+
+        if (element) {
+          // Calculamos la posición exacta del elemento en la página
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+
+          // Forzamos a la ventana a ir a esa coordenada exacta
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth"
+          });
+
+          // Si tuvo éxito, destruimos el intervalo
+          clearInterval(checkAndScroll);
+        }
+
+        // Si después de 20 intentos (2 segundos) no encuentra el ID, detenemos la búsqueda 
+        // para no consumir memoria.
+        if (attempts >= 20) {
+          clearInterval(checkAndScroll);
+        }
+      }, 100); // Revisa si la página ya cargó cada 100 milisegundos
+
+      return () => clearInterval(checkAndScroll);
     }
   }, [location]);
   // ================= DYNAMIC SCADA DATA (ThingSpeak API) =================
