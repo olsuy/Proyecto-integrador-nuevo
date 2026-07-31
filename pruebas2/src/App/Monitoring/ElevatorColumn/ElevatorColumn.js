@@ -6,7 +6,7 @@ import './ElevatorColumn.css';
 // Las rutas dependerán de dónde pusiste DashboardCard y ControlPanel.
 // Si las pusiste sueltas en la carpeta Monitoring, debes subir un nivel con "../"
 import DashboardCard from "../DashboardCard/DashboardCard"; 
-import ControlPanel from "../ControlPanel/ControlPanel";   
+import ControlPanel from "../ControlPanels/ControlPanel";   
 import { getVariableValue } from "../MonitoringUtils/monitoringUtils"; // Subimos un nivel y entramos a tu carpeta
 
 const ElevatorColumn = ({ elevadorId, title, data, override, onCommand }) => {
