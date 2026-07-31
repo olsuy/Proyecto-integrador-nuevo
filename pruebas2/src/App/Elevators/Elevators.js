@@ -21,7 +21,7 @@ function Elevators() {
   return (
     
     <div className="elevators-wrapper">
-      
+      <Nav/>
       
       {loading && (
         <div className="elevators-overlay show">
