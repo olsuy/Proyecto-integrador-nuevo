@@ -18,38 +18,34 @@ function PLC_SCADA() {
   const [systemData, setSystemData] = useState({});
   const [plcStatus] = useState({ system: "ONLINE", plc: "RUNNING", network: "STABLE" });
 
-  // ================= SCROLL AUTOMÁTICO (A PRUEBA DE GSAP) =================
+  // ================= SCROLL AUTOMÁTICO (SOLUCIÓN DEFINITIVA CON GSAP) =================
   useEffect(() => {
     if (location.hash) {
       const targetId = location.hash.slice(1);
-      let attempts = 0;
-
-      const checkAndScroll = setInterval(() => {
+      
+      const executeScroll = () => {
         const element = document.getElementById(targetId);
-        attempts++;
-
         if (element) {
-          // Calculamos la posición exacta del elemento en la página
-          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          // 1. Obligamos a GSAP a recalcular las alturas y posiciones antes de movernos
+          ScrollTrigger.refresh();
 
-          // Forzamos a la ventana a ir a esa coordenada exacta
+          // 2. Calculamos la posición exacta (le restamos 100px para que tu Nav no tape el título)
+          const offset = 100; 
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
+
+          // 3. Ejecutamos el movimiento
           window.scrollTo({
             top: elementPosition,
             behavior: "smooth"
           });
-
-          // Si tuvo éxito, destruimos el intervalo
-          clearInterval(checkAndScroll);
         }
+      };
 
-        // Si después de 20 intentos (2 segundos) no encuentra el ID, detenemos la búsqueda 
-        // para no consumir memoria.
-        if (attempts >= 20) {
-          clearInterval(checkAndScroll);
-        }
-      }, 100); // Revisa si la página ya cargó cada 100 milisegundos
+      // Esperamos casi 1 segundo (800ms) para garantizar que las imágenes, la API 
+      // y GSAP ya terminaron de acomodar la página por completo.
+      const timer = setTimeout(executeScroll, 800);
 
-      return () => clearInterval(checkAndScroll);
+      return () => clearTimeout(timer);
     }
   }, [location]);
   // ================= DYNAMIC SCADA DATA (ThingSpeak API) =================
