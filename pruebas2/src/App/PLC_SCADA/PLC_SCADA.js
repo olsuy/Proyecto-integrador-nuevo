@@ -7,6 +7,7 @@ import "./PLC_SCADA.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 // Módulos
 import HeroSection from "./HeroSection/HeroSection";
 import ElevatorOverview from "./ElevatorOverview/ElevatorOverview";
