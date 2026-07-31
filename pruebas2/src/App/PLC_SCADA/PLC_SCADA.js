@@ -4,6 +4,9 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import "./PLC_SCADA.css";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 // Módulos
 import HeroSection from "./HeroSection/HeroSection";
 import ElevatorOverview from "./ElevatorOverview/ElevatorOverview";
