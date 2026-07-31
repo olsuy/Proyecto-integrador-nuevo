@@ -3,7 +3,7 @@
   min-height: 100vh;
   background: #081526;
   color: white;
-   /* Aumentamos el padding inferior para separar del footer */
+  padding: 40px 20px  20px; /* Aumentamos el padding inferior para separar del footer */
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
