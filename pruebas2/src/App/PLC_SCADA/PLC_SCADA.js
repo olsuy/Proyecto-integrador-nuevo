@@ -51,7 +51,7 @@ function PLC_SCADA() {
 
       // Esperamos casi 1 segundo (700ms) para garantizar que las imágenes, la API 
       // y GSAP ya terminaron de acomodar la página por completo.
-      const timer = setTimeout(executeScroll, 800);
+      const timer = setTimeout(executeScroll, 1000);
 
       return () => clearTimeout(timer);
     }
