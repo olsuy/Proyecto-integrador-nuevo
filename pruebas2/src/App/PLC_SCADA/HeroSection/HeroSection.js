@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { NavLink } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,7 +51,7 @@ const HeroSection = () => {
         <p className="hero-subtitle" ref={heroSubtitleRef}>
           Real-time elevator position, door status, PLC communication, and industrial alarms in a single monitoring platform for operators, technicians, and engineers.
         </p>
-        <button className="hero-button" ref={heroButtonRef}>Open Dashboard</button>
+        <NavLink to = "/monitoring"><button className="hero-button" ref={heroButtonRef}>Open Dashboard</button></NavLink>
         <div className="hero-indicators" ref={heroIndicatorsRef}>
           <div className="indicator"><span className="dot dot-green"></span>SYSTEM ONLINE</div>
           <div className="indicator"><span className="dot dot-blue"></span>PLC CONNECTED</div>

@@ -24,20 +24,24 @@ function PLC_SCADA() {
 
   // ================= SCROLL AUTOMÁTICO (SOLUCIÓN DEFINITIVA CON GSAP) =================
   useEffect(() => {
+    // 1. SIEMPRE forzamos la vista al inicio de la página inmediatamente (sin animación) al cargar
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+    // 2. Si la URL trae un hash (#), ejecutamos el deslizamiento suave después de renderizar
     if (location.hash) {
       const targetId = location.hash.slice(1);
       
       const executeScroll = () => {
         const element = document.getElementById(targetId);
         if (element) {
-          // 1. Obligamos a GSAP a recalcular las alturas y posiciones antes de movernos
+          // Obligamos a GSAP a recalcular las alturas y posiciones antes de movernos
           ScrollTrigger.refresh();
 
-          // 2. Calculamos la posición exacta (le restamos 100px para que tu Nav no tape el título)
+          // Calculamos la posición exacta (le restamos 100px para que tu Nav no tape el título)
           const offset = 100; 
           const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
 
-          // 3. Ejecutamos el movimiento
+          // Ejecutamos el movimiento
           window.scrollTo({
             top: elementPosition,
             behavior: "smooth"
@@ -45,9 +49,9 @@ function PLC_SCADA() {
         }
       };
 
-      // Esperamos casi 1 segundo (800ms) para garantizar que las imágenes, la API 
+      // Esperamos casi 1 segundo (700ms) para garantizar que las imágenes, la API 
       // y GSAP ya terminaron de acomodar la página por completo.
-      const timer = setTimeout(executeScroll, 800);
+      const timer = setTimeout(executeScroll, 700);
 
       return () => clearTimeout(timer);
     }
