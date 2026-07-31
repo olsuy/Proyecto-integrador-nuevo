@@ -7,11 +7,18 @@ import ProtectedRoute from './ProtectedRute';
 import Support from './Support/Support';
 import System from './System/System';
 import PLC_SCADA from './PLC_SCADA/PLC_SCADA';
+
+// 1. Importa el componente que acabas de crear
+import ScrollToTop from './ScrollToTop'; 
+
 function App() {
   const auth = localStorage.getItem("auth") === "true";
 
   return (
     <BrowserRouter>
+      {/* 2. Colócalo aquí, justo adentro del BrowserRouter pero antes de las Routes */}
+      <ScrollToTop />
+
       <Routes>
         <Route
           path="/"

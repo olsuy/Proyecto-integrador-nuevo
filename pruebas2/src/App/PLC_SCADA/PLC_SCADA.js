@@ -122,7 +122,7 @@ function PLC_SCADA() {
           <p className="reveal">
             PLC control, SCADA supervision, alarm history, and AI diagnostics in one industrial platform, built for daily operational use.
           </p>
-          <button className="cta-button reveal"><NavLink to ="/monitoring">Open Full Dashboard</NavLink></button>
+          <NavLink to ="/monitoring"><button className="cta-button reveal">Open Full Dashboard</button></NavLink>
         </section>
         <Footer />
         
