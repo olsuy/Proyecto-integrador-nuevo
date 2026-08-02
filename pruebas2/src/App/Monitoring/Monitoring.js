@@ -55,10 +55,9 @@ const Monitoring = () => {
   return (
     <>
       <Nav />
-      <HeroSectionMonitoring/>
       <div className="monitoring-container">
-        
         <div className="monitoring-header">
+          <HeroSectionMonitoring/>
           <h1>Control Room</h1>
           <p>Real-Time SCADA Monitoring & Command</p>
         </div>
