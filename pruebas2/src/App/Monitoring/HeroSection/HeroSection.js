@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { NavLink } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroSectionMonitoring = () => {
   const heroRef = useRef(null);
-  const contentRef = useRef(null); // <-- Nuevo ref para el contenido interno
+  const contentRef = useRef(null);
   const heroTitleRef = useRef(null);
   const heroSubtitleRef = useRef(null);
   const heroButtonRef = useRef(null);
@@ -25,21 +24,34 @@ const HeroSectionMonitoring = () => {
         .fromTo(heroButtonRef.current, { y: 30, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.8 }, "-=0.6")
         .fromTo(heroIndicatorsRef.current ? heroIndicatorsRef.current.children : [], { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.15 }, "-=0.5");
 
-      // Animación de Parallax al scrollear
-      gsap.to(contentRef.current, { // <-- Ahora animamos solo el contenido
-        y: 150, // Lo empujamos hacia abajo suavemente en píxeles
-        opacity: 0, // Lo desvanecemos a 0 para que desaparezca limpio
+      // Animación de Parallax al scrollear (se mantiene igual de suave)
+      gsap.to(contentRef.current, { 
+        y: 150, 
+        opacity: 0, 
         ease: "none",
         scrollTrigger: {
           trigger: heroRef.current,
           start: "top top",
-          end: "bottom top", // <-- Clave: termina cuando el fondo del hero toca el techo
-          scrub: 1, // <-- Clave: inercia de 1 segundo para hacerlo fluido
+          end: "bottom top", 
+          scrub: 1, 
         },
       });
     }, heroRef);
     return () => ctx.revert();
   }, []);
+
+  // Función para que el botón haga scroll a la siguiente sección (asegúrate de ponerle id="metrics" o el nombre que prefieras a tu sección de abajo)
+  const handleScrollDown = () => {
+    const nextSection = document.getElementById("metrics");
+    if (nextSection) {
+      const offset = 100;
+      const elementPosition = nextSection.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: elementPosition, behavior: "smooth" });
+    } else {
+      // Si aún no tienes la sección de abajo, simplemente baja un poco la pantalla
+      window.scrollBy({ top: window.innerHeight - 100, behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="hero" ref={heroRef}>
@@ -47,24 +59,31 @@ const HeroSectionMonitoring = () => {
         <span></span><span></span><span></span><span></span>
       </div>
       
-      {/* Agregamos el contentRef al contenedor principal de los textos */}
       <div className="hero-content" ref={contentRef}>
         <h1 className="hero-title" ref={heroTitleRef}>
-          Monitoring Control Center<br/>
+          Monitoring Control Center
         </h1>
         <p className="hero-subtitle" ref={heroSubtitleRef}>
-          Real-time elevator position, door status, PLC communication, and industrial alarms in a single monitoring platform for operators, technicians, and engineers.
+          Comprehensive oversight of industrial assets, performance metrics, and system diagnostics in real-time for optimal operational efficiency.
         </p>
-        <NavLink to="/monitoring">
-          
-        </NavLink>
+        
+        {/* Cambiamos el NavLink por un botón de acción de scroll */}
+        <button 
+          className="hero-button" 
+          ref={heroButtonRef}
+          onClick={handleScrollDown}
+        >
+          View Live Metrics
+        </button>
+
         <div className="hero-indicators" ref={heroIndicatorsRef}>
-          <div className="indicator"><span className="dot dot-green"></span>SYSTEM ONLINE</div>
-          <div className="indicator"><span className="dot dot-blue"></span>PLC CONNECTED</div>
-          <div className="indicator"><span className="dot dot-green"></span>SCADA ACTIVE</div>
-          <div className="indicator"><span className="dot dot-blue"></span>AI MONITORING</div>
+          <div className="indicator"><span className="dot dot-green"></span>NETWORK STABLE</div>
+          <div className="indicator"><span className="dot dot-blue"></span>DATA LOGGING</div>
+          <div className="indicator"><span className="dot dot-green"></span>SENSORS ACTIVE</div>
+          <div className="indicator"><span className="dot dot-blue"></span>CLOUD SYNC</div>
         </div>
       </div>
+      
       <div className="hero-scroll-cue"><span></span>Scroll</div>
     </section>
   );
