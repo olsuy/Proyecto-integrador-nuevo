@@ -90,6 +90,27 @@
   animation: spin 0.8s linear infinite; 
 }
 
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 1000px; /* Evita que el texto se estire demasiado en pantallas gigantes */
+    margin: 0 auto;    /* Centra el contenedor horizontalmente */
+    padding-top: 140px; /* Empuja todo hacia abajo para esquivar el Nav */
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos internos */
+    text-align: center;  /* Centra el texto */
+}
+
+/* Opcional: Para asegurar que el párrafo del subtítulo no sea más ancho que la pantalla */
+.hero-content .hero-subtitle {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 30px auto; /* Centra el párrafo y le da espacio al botón */
+}
+
 @keyframes spin { 
   to { transform: rotate(360deg); } 
 }
