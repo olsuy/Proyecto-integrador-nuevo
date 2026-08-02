@@ -3,6 +3,7 @@ import React from "react";
 import "./Monitoring.css";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
+import HeroSectionMonitoring from "./HeroSection/HeroSection";
 
 // Importaciones desde tus carpetas organizadas
 import CommandModal from "./CommandModal/CommandModal";
@@ -55,6 +56,7 @@ const Monitoring = () => {
     <>
       <Nav />
       <div className="monitoring-container">
+        <HeroSectionMonitoring/>
         <div className="monitoring-header">
           <h1>Control Room</h1>
           <p>Real-Time SCADA Monitoring & Command</p>
