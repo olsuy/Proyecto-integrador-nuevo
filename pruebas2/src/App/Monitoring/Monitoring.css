@@ -1,5 +1,10 @@
 /* Monitoring.css */
+body, html {
+    overflow-x: hidden;
+}
 .monitoring-container {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   background: #081526;
   color: white;
@@ -107,8 +112,9 @@
 /* Opcional: Para asegurar que el párrafo del subtítulo no sea más ancho que la pantalla */
 .hero-content .hero-subtitle {
     width: 100%;
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto 30px auto; /* Centra el párrafo y le da espacio al botón */
+    overflow: hidden !important;
 }
 
 @keyframes spin { 
