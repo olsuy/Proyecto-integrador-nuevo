@@ -53,16 +53,21 @@ const HeroSectionMonitoring = () => {
     }
   };
 
+  // ... tu código anterior (useEffect, etc.) se queda igual ...
+
   return (
-    <section className="hero" ref={heroRef}>
+    // 1. Agregamos "monitoring-hero-section" aquí
+    <section className="hero monitoring-hero-section" ref={heroRef}>
       <div className="hero-lines" ref={heroLinesRef}>
         <span></span><span></span><span></span><span></span>
       </div>
       
-      <div className="hero-content" ref={contentRef}>
+      {/* 2. Agregamos "monitoring-center-content" aquí */}
+      <div className="hero-content monitoring-center-content" ref={contentRef}>
         <h1 className="hero-title" ref={heroTitleRef}>
           Monitoring Control Center
         </h1>
+        {/* ... el resto de tus elementos (p, botones, indicadores) ... */}
         <p className="hero-subtitle" ref={heroSubtitleRef}>
           Comprehensive oversight of industrial assets, performance metrics, and system diagnostics in real-time for optimal operational efficiency.
         </p>
