@@ -6,6 +6,7 @@ import Hero from "./Hero/hero";
 import PanelInfo from "./panel/panel";
 import Statistics from "./Status_cards/st_cards";
 import Footer from "../Footer/Footer";
+import HeroSectionElevators from "./HeroSection/HeroSection";
 
 function Elevators() {
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ function Elevators() {
     
     <div className="elevators-wrapper">
       <Nav/>
-      
+      <HeroSectionElevators/>
       {loading && (
         <div className="elevators-overlay show">
           <div className="elevators-loader-card">
