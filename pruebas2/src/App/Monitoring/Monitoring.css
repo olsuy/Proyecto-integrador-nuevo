@@ -1,15 +1,27 @@
-/* Monitoring.css */
-body, html {
-    overflow-x: hidden;
+/* =========================================
+   RESETEO GLOBAL (Adiós scroll y fondos blancos)
+   ========================================= */
+html, body, #root {
+  overflow-x: hidden !important; 
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #081526 !important; /* Pintamos el fondo base con tu color azul oscuro */
 }
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
 .monitoring-container {
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
   background: #081526;
   color: white;
-  padding: 40px 20px  20px; /* Aumentamos el padding inferior para separar del footer */
+  padding: 40px 20px 20px; 
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box !important; /* CRUCIAL: Evita que el padding desborde la pantalla */
+  overflow-x: hidden;
 }
 
 .monitoring-header {
@@ -36,7 +48,7 @@ body, html {
   flex-direction: column;
   gap: 40px;
   max-width: 1400px;
-  margin: 0 auto 60px auto; /* Añadimos margen inferior para que respire antes del footer */
+  margin: 0 auto 60px auto; /* Este margen es el que dejaba ver el fondo blanco, ahora se verá azul */
 }
 
 @media (min-width: 992px) {
@@ -45,7 +57,9 @@ body, html {
   }
 }
 
-/* Pantalla de carga (Loader Overlay) */
+/* =========================================
+   PANTALLA DE CARGA (Loader Overlay)
+   ========================================= */
 .monitoring-overlay {
   position: fixed; 
   inset: 0; 
@@ -98,33 +112,32 @@ body, html {
 /* =========================================
    CENTRADOR EXCLUSIVO PARA MONITORING HERO
    ========================================= */
-
 .monitoring-hero-section {
     display: flex !important;
-    justify-content: center !important; /* Centra horizontalmente el contenedor */
+    justify-content: center !important; 
     width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important; /* Asegura que las líneas del hero no se salgan */
+    box-sizing: border-box;
 }
 
 .monitoring-center-content {
     margin: 0 auto !important;
-    padding-left: 0 !important; /* Resetea el margen izquierdo que venía de PLC */
+    padding-left: 0 !important; 
     padding-right: 0 !important;
     width: 90% !important;
     max-width: 1000px !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Centra los botones e indicadores */
-    text-align: center !important;  /* Centra el texto */
+    align-items: center !important; 
+    text-align: center !important;  
 }
 
-/* Aseguramos que el párrafo tampoco se cargue a un lado */
 .monitoring-center-content .hero-subtitle {
     margin: 0 auto 30px auto !important;
     width: 100% !important;
     max-width: 800px !important;
 }
-
-
 
 @keyframes spin { 
   to { transform: rotate(360deg); } 
