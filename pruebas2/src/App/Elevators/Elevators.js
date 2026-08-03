@@ -7,6 +7,7 @@ import PanelInfo from "./panel/panel";
 import Statistics from "./Status_cards/st_cards";
 import Footer from "../Footer/Footer";
 import HeroSectionElevators from "./HeroSection/HeroSection";
+import Hero from "./Hero/hero";
 
 function Elevators() {
   const [loading, setLoading] = useState(true);
@@ -40,10 +41,7 @@ function Elevators() {
           
           {/* Asegúrate de ponerle este ID al contenedor de tus tarjetas para que el botón de scroll funcione */}
           <div id="elevators-status">
-             {/* <Card />
-                 <PanelInfo />
-                 <Statistics /> 
-                 (Descomenta tus otros componentes aquí cuando los necesites) */}
+            <Hero/>
           </div>
         </>
       )}
