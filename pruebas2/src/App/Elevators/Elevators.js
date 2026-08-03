@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import './Elevators.css'
 import Nav from "../Nav/Nav";
+// Eliminamos la importación del Hero viejo
 import Card from "./Cards/Cards";
-import Hero from "./Hero/hero";
 import PanelInfo from "./panel/panel";
 import Statistics from "./Status_cards/st_cards";
 import Footer from "../Footer/Footer";
@@ -20,10 +20,9 @@ function Elevators() {
   }, []);
 
   return (
-    
     <div className="elevators-wrapper">
       <Nav/>
-      <HeroSectionElevators/>
+      
       {loading && (
         <div className="elevators-overlay show">
           <div className="elevators-loader-card">
@@ -33,13 +32,22 @@ function Elevators() {
         </div>
       )}
 
+      {/* Renderizamos el contenido solo cuando termina de cargar */}
       {!loading && (
         <>
-          <Hero />
+          {/* Aquí queda tu nuevo Hero exclusivo */}
+          <HeroSectionElevators/>
           
+          {/* Asegúrate de ponerle este ID al contenedor de tus tarjetas para que el botón de scroll funcione */}
+          <div id="elevators-status">
+             {/* <Card />
+                 <PanelInfo />
+                 <Statistics /> 
+                 (Descomenta tus otros componentes aquí cuando los necesites) */}
+          </div>
         </>
-        
       )}
+      
       <Footer/>
     </div>
   );

@@ -87,6 +87,31 @@
   max-width: 1300px;
   margin: 0 auto;
 }
+
+/* =========================================
+   ESTILOS BASE PARA ELEVATORS
+   ========================================= */
+.elevators-wrapper {
+    background-color: #05070b; /* Asegura el fondo oscuro */
+    color: #ffffff; /* Fuerza a que todo el texto herede color blanco por defecto */
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================================
+   COLORES ESPECÍFICOS DEL HERO
+   ========================================= */
+.elevators-center-content .hero-subtitle {
+    color: #a5b4c8 !important; /* Un gris azulado claro para mejor lectura */
+    font-weight: 400;
+}
+
+.elevators-center-content .indicator {
+    color: #ffffff !important; /* Blanco puro para los indicadores */
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
