@@ -83,7 +83,7 @@
   right: -5%; /* Permite que la imagen se salga un poco del borde para un look moderno */
   width: 650px; /* Mucho más grande */
   max-width: 80vw;
-  opacity: 0.06; /* Muy sutil, como marca de agua */
+  opacity: 0.25; /* Muy sutil, como marca de agua */
   z-index: 0; /* Detrás de todos los componentes */
   pointer-events: none; /* Evita que estorbe al hacer clic en botones o texto */
   filter: blur(3px) drop-shadow(0 0 40px rgba(0, 168, 255, 0.4));
