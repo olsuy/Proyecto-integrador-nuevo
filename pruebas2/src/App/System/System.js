@@ -106,48 +106,45 @@ function System() {
     return () => observer.disconnect();
   }, [checks, speedData, uptimeData]); 
 
- return (
+  return (
     <>
       <Nav />
       <div className="system" ref={containerRef}>
         <HeroSectionSystem/>
-        
-        {/* ===================== GRÁFICO DE FONDO (NUEVO) ===================== */}
-        <img src={stationHero} alt="Industrial Node Background" className="system-bg-graphic" />
 
-        {/* ===================== HEADER ===================== */}
-        <section id="system-status" className="dashboard-header reveal is-revealed">
-          <div className="dashboard-header-text">
-            <span className="system-eyebrow">
-              <span className={`dot ${statusOnline ? "dot-online" : "dot-offline"}`}></span>
-              Monitoring Center
-            </span>
-            <h1 className="dashboard-title">System Operations</h1>
-            {lastUpdate && (
-              <div className="dashboard-update">
-                Last updated: <span>{lastUpdate}</span>
-              </div>
-            )}
+        {/* ===================== CONTENEDOR EXCLUSIVO DE MÉTRICAS ===================== */}
+        <div className="system-metrics-wrapper">
+          
+          {/* Imagen atrapada y centrada de fondo */}
+          <img src={stationHero} alt="Industrial Node Background" className="system-bg-graphic" />
+
+          {/* HEADER */}
+          <section id="system-status" className="dashboard-header reveal is-revealed">
+            <div className="dashboard-header-text">
+              <span className="system-eyebrow">
+                <span className={`dot ${statusOnline ? "dot-online" : "dot-offline"}`}></span>
+                Monitoring Center
+              </span>
+              <h1 className="dashboard-title">System Operations</h1>
+              {lastUpdate && (
+                <div className="dashboard-update">
+                  Last updated: <span>{lastUpdate}</span>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* MODULES (Los 4 recuadros) */}
+          <div style={{ position: 'relative', zIndex: 2 }}>
+            <Indicators speedData={speedData} uptimeData={uptimeData} />
           </div>
-          {/* Eliminamos el div .dashboard-header-visual que estaba aquí */}
-        </section>
 
-        {/* ===================== MODULES ===================== */}
-        {/* Agregamos position relative para asegurar que queden por encima del fondo */}
-        <div style={{ position: 'relative', zIndex: 2 }}>
-          <Indicators speedData={speedData} uptimeData={uptimeData} />
         </div>
-        
-        {/* ... el resto de tu código (DIGITAL TWIN, PageSpeed, etc.) se queda igual ... */}
-        
 
         {/* ===================== DIGITAL TWIN ===================== */}
         <section style={{ padding: "0 8vw 60px 8vw" }}>
-          
-          {/* Añadimos position: "relative" directamente aquí para anclar la tarjeta */}
           <div className="digital-twin-card reveal" style={{ position: "relative" }}>
             
-            {/* EL STATUS DEBE ESTAR EXACTAMENTE AQUÍ ADENTRO */}
             <ServerStatus checks={checks} />
 
             <img src={stationGiant} alt="Control Station" className="digital-twin-image" />
@@ -157,16 +154,14 @@ function System() {
               <p>Stable connection with all logic controllers.</p>
             </div>
           </div>
-          
         </section>
+        
         <PageSpeed speedData={speedData} />
         <Uptime uptimeData={uptimeData} />
         <SystemLogs uptimeData={uptimeData} />
         <Footer/>
       </div>
-      
     </>
-    
   );
 }
 

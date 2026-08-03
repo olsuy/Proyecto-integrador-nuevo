@@ -66,37 +66,51 @@
   transform: translateY(0);
 }
 
-/* =========================================================
-   DISEÑO DEL ENCABEZADO Y GRÁFICO DE FONDO
-========================================================= */
-.dashboard-header {
-  padding: 0 8vw;
-  margin-bottom: 50px;
-  position: relative;
-  z-index: 2; /* Mantiene el texto por encima del fondo */
+/* =========================================
+   WRAPPER DE MÉTRICAS (Contiene la imagen)
+========================================= */
+.system-metrics-wrapper {
+  position: relative; 
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow: hidden; 
 }
 
-/* Gráfico decorativo de fondo (CENTRADO) */
+/* Gráfico decorativo de fondo (Atrapado en el wrapper) */
 .system-bg-graphic {
   position: absolute;
-  top: 450px; 
-  left: 50%; /* Mueve la imagen a la mitad de la pantalla */
-  transform: translateX(-50%); /* La centra perfectamente sobre su propio eje */
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
   width: 700px; 
-  max-width: 90vw; /* Evita que se salga en celulares */
+  max-width: 90vw;
   opacity: 0.25; 
   z-index: 0;
   pointer-events: none;
   filter: blur(1px) drop-shadow(0 0 60px rgba(0, 168, 255, 0.3));
-  /* Usamos una nueva animación especial para elementos centrados */
-  animation: floatBgCenter 12s ease-in-out infinite; 
+  animation: floatBgWrapper 12s ease-in-out infinite; 
 }
 
-/* Animación que respeta el centrado (-50% en X) mientras flota (en Y) */
-@keyframes floatBgCenter {
-  0% { transform: translate(-50%, 0px) scale(1); }
-  50% { transform: translate(-50%, -25px) scale(1.02); }
-  100% { transform: translate(-50%, 0px) scale(1); }
+@keyframes floatBgWrapper {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, calc(-50% - 25px)) scale(1.02); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* =========================================================
+   DISEÑO DEL ENCABEZADO
+========================================================= */
+.dashboard-header {
+  padding: 0 8vw;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  position: relative;
+  z-index: 2;
 }
 
 .dashboard-title {
@@ -115,6 +129,7 @@
 .dashboard-update span {
   color: var(--cyan);
 }
+
 /* =========================================================
    DISEÑO DE LA TARJETA "GEMELO DIGITAL"
 ========================================================= */
@@ -136,8 +151,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.7; /* Le da un toque más oscuro y tecnológico */
-  mix-blend-mode: screen; /* Mezcla los azules con el fondo */
+  opacity: 0.7; 
+  mix-blend-mode: screen; 
   transition: transform 0.5s ease;
 }
 
@@ -212,18 +227,40 @@
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes loaderPop {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =========================================
+   CENTRADOR EXCLUSIVO PARA SYSTEM HERO
+========================================= */
+.system-hero-section {
+    display: flex !important;
+    justify-content: center !important; 
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important; 
+    box-sizing: border-box;
+}
+
+.system-center-content {
+    margin: 0 auto !important;
+    padding-left: 0 !important; 
+    padding-right: 0 !important;
+    width: 90% !important;
+    max-width: 1000px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+    text-align: center !important;  
+}
+
+.system-center-content .hero-subtitle {
+    margin: 0 auto 30px auto !important;
+    width: 100% !important;
+    max-width: 800px !important;
 }
