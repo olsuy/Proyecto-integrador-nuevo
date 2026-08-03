@@ -7,6 +7,7 @@ import stationHero from "./assets/station-hero.png";
 import stationGiant from "./assets/station-giant.png";
 
 // Modules
+import HeroSectionSystem from "./HeroSection/HeroSection";
 import Indicators from "./Indicators/Indicators";
 import ServerStatus from "./ServerStatus/ServerStatus";
 import PageSpeed from "./PageSpeed/PageSpeed";
@@ -105,11 +106,15 @@ function System() {
     return () => observer.disconnect();
   }, [checks, speedData, uptimeData]); 
 
-  return (
+ return (
     <>
       <Nav />
       <div className="system" ref={containerRef}>
+        <HeroSectionSystem/>
         
+        {/* ===================== GRÁFICO DE FONDO (NUEVO) ===================== */}
+        <img src={stationHero} alt="Industrial Node Background" className="system-bg-graphic" />
+
         {/* ===================== HEADER ===================== */}
         <section className="dashboard-header reveal is-revealed">
           <div className="dashboard-header-text">
@@ -124,13 +129,16 @@ function System() {
               </div>
             )}
           </div>
-          <div className="dashboard-header-visual">
-            <img src={stationHero} alt="Industrial Node" className="floating-hero" />
-          </div>
+          {/* Eliminamos el div .dashboard-header-visual que estaba aquí */}
         </section>
 
         {/* ===================== MODULES ===================== */}
-        <Indicators speedData={speedData} uptimeData={uptimeData} />
+        {/* Agregamos position relative para asegurar que queden por encima del fondo */}
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <Indicators speedData={speedData} uptimeData={uptimeData} />
+        </div>
+        
+        {/* ... el resto de tu código (DIGITAL TWIN, PageSpeed, etc.) se queda igual ... */}
         
 
         {/* ===================== DIGITAL TWIN ===================== */}
