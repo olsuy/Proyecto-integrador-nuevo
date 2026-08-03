@@ -76,24 +76,27 @@
   z-index: 2; /* Mantiene el texto por encima del fondo */
 }
 
-/* Gráfico decorativo de fondo */
+/* Gráfico decorativo de fondo (CENTRADO) */
 .system-bg-graphic {
   position: absolute;
-  top: 15%; /* Ajusta esto para subir o bajar la imagen en la página */
-  right: -5%; /* Permite que la imagen se salga un poco del borde para un look moderno */
-  width: 650px; /* Mucho más grande */
-  max-width: 80vw;
-  opacity: 0.25; /* Muy sutil, como marca de agua */
-  z-index: 0; /* Detrás de todos los componentes */
-  pointer-events: none; /* Evita que estorbe al hacer clic en botones o texto */
-  filter: blur(3px) drop-shadow(0 0 40px rgba(0, 168, 255, 0.4));
-  animation: floatBg 12s ease-in-out infinite; /* Flote mucho más lento y elegante */
+  top: 450px; 
+  left: 50%; /* Mueve la imagen a la mitad de la pantalla */
+  transform: translateX(-50%); /* La centra perfectamente sobre su propio eje */
+  width: 700px; 
+  max-width: 90vw; /* Evita que se salga en celulares */
+  opacity: 0.25; 
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(1px) drop-shadow(0 0 60px rgba(0, 168, 255, 0.3));
+  /* Usamos una nueva animación especial para elementos centrados */
+  animation: floatBgCenter 12s ease-in-out infinite; 
 }
 
-@keyframes floatBg {
-  0% { transform: translateY(0px) rotate(0deg) scale(1); }
-  50% { transform: translateY(-25px) rotate(2deg) scale(1.02); }
-  100% { transform: translateY(0px) rotate(0deg) scale(1); }
+/* Animación que respeta el centrado (-50% en X) mientras flota (en Y) */
+@keyframes floatBgCenter {
+  0% { transform: translate(-50%, 0px) scale(1); }
+  50% { transform: translate(-50%, -25px) scale(1.02); }
+  100% { transform: translate(-50%, 0px) scale(1); }
 }
 
 .dashboard-title {
