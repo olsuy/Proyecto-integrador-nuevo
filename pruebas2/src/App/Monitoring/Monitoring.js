@@ -79,9 +79,9 @@ const Monitoring = () => {
             onCommand={sendCommand} 
           />
         </div>
-        <Footer/>
+        
       </div>
-
+      <Footer/>
       <CommandModal 
         isOpen={modal.isOpen} 
         title={modal.title} 
