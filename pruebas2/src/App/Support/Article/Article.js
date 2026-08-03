@@ -2,18 +2,18 @@ import { useEffect, useRef } from "react";
 import "./Article.css";
 
 
-function Article(){
+function Article() {
 
     const articleRef = useRef();
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
         const observer = new IntersectionObserver(
 
-            ([entry])=>{
+            ([entry]) => {
 
-                if(entry.isIntersecting){
+                if (entry.isIntersecting) {
 
                     articleRef.current.classList.add("show");
 
@@ -22,22 +22,22 @@ function Article(){
             },
 
             {
-                threshold:0.2
+                threshold: 0.2
             }
 
         );
 
 
-        if(articleRef.current){
+        if (articleRef.current) {
 
             observer.observe(articleRef.current);
 
         }
 
 
-        return ()=>{
+        return () => {
 
-            if(articleRef.current){
+            if (articleRef.current) {
 
                 observer.unobserve(articleRef.current);
 
@@ -46,13 +46,13 @@ function Article(){
         };
 
 
-    },[]);
+    }, []);
 
 
 
-    return(
+    return (
 
-        <section 
+        <section
             className="article scroll_animation"
             ref={articleRef}
         >
@@ -71,7 +71,7 @@ function Article(){
                 </p>
 
 
-                <a 
+                <a
                     href="#contact-info"
                     className="article_button"
                 >
