@@ -116,7 +116,7 @@ function System() {
         <img src={stationHero} alt="Industrial Node Background" className="system-bg-graphic" />
 
         {/* ===================== HEADER ===================== */}
-        <section className="dashboard-header reveal is-revealed">
+        <section id="system-status" className="dashboard-header reveal is-revealed">
           <div className="dashboard-header-text">
             <span className="system-eyebrow">
               <span className={`dot ${statusOnline ? "dot-online" : "dot-offline"}`}></span>
