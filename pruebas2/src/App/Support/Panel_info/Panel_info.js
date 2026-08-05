@@ -100,7 +100,7 @@ function Panel_info() {
             <Contact_info
                 icon={<MapPin size={18} />}
                 title="Location"
-                value="Industrial del Retoño, Zapopan, Jalisco, México"
+                value="Industrial del Retoño, El LLano, Aguascalientes, México"
             />
 
 
