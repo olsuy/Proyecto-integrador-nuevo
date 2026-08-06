@@ -38,6 +38,19 @@ app.get("/", (req, res) => {
   res.status(200).send("Backend funcionando");
 });
 
+// En tu archivo de servidor backend (ej. server.js o index.js)
+
+// ¡Esta ruta debe coincidir EXACTAMENTE con lo que pusiste en el fetch de React!
+app.post('/api/monitor', (req, res) => {
+    const { elevadorId, variable, valorTexto, valorBool } = req.body;
+    
+    // Aquí va tu lógica para hacer el UPDATE en MySQL
+    console.log("Recibido en el backend:", req.body);
+    
+    // Y siempre debes responderle a React para que no se quede esperando
+    res.status(200).json({ message: "Comando recibido correctamente" });
+});
+
 app.get("/health", (req, res) => {
   console.log("Entró a /health");
   res.status(200).send("ok");
