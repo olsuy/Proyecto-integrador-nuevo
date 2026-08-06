@@ -92,7 +92,7 @@ const useMonitoring = () => {
     console.log(`%c[SQL UPDATE EXECUTED]`, "color: #5bb7ff; font-weight: bold", `\n${sqlQuery}`);
 
     try {
-      const response = await fetch('https://proyecto-integrador-nuevo-production.up.railway.app', {
+      const response = await fetch('https://proyecto-integrador-nuevo-production.up.railway.app/api/monitor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
