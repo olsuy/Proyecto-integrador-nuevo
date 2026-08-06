@@ -61,7 +61,30 @@ app.get("/api/lecturas", (req, res) => {
   });
 });
 
-app.post("/api/monitor", (req, res) => {
+// Agregamos la palabra 'async' antes de (req, res)
+app.get("/api/lecturas", async (req, res) => {
+  console.log("Entró a /api/lecturas");
+
+  const querySQL = `
+    SELECT e.nombre_elevador, v.nombre_variable, l.valor_texto, l.valor_numerico, l.valor_booleano, l.fecha_hora
+    FROM lecturas_plc l
+    INNER JOIN elevadores e ON l.id_elevador = e.id_elevador
+    INNER JOIN variables_plc v ON l.id_variable = v.id_variable
+    WHERE l.id_lectura IN (SELECT MAX(id_lectura) FROM lecturas_plc GROUP BY id_elevador, id_variable)
+  `;
+
+  try {
+    // En mysql2 con promesas, el resultado viene en un arreglo donde la posición 0 son las filas.
+    // Usamos destructuring [results] para extraer solo las filas.
+    const [results] = await db.query(querySQL);
+    res.status(200).json(results);
+  } catch (err) {
+    console.error("Error en GET /api/lecturas:", err);
+    res.status(500).send("Error al consultar la base de datos");
+  }
+});
+
+app.post("/api/monitor", async (req, res) => {
   console.log("Entró a /api/monitor con los datos:", req.body);
 
   const { elevadorId, variable, valorTexto, valorBool } = req.body;
@@ -80,13 +103,14 @@ app.post("/api/monitor", (req, res) => {
     variable
   ];
 
-  db.query(sqlQuery, values, (err, results) => {
-    if (err) {
-      console.error("Error en POST /api/monitor:", err);
-      return res.status(500).send("Error al actualizar la base de datos");
-    }
+  try {
+    // Ejecutamos el query usando await
+    await db.query(sqlQuery, values);
     res.status(200).send("Comando ejecutado y base de datos actualizada");
-  });
+  } catch (err) {
+    console.error("Error en POST /api/monitor:", err);
+    res.status(500).send("Error al actualizar la base de datos");
+  }
 });
 
 app.get("/health", (req, res) => {
