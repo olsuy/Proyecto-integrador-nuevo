@@ -41,14 +41,52 @@ app.get("/", (req, res) => {
 // En tu archivo de servidor backend (ej. server.js o index.js)
 
 // ¡Esta ruta debe coincidir EXACTAMENTE con lo que pusiste en el fetch de React!
-app.post('/api/monitor', (req, res) => {
-    const { elevadorId, variable, valorTexto, valorBool } = req.body;
-    
-    // Aquí va tu lógica para hacer el UPDATE en MySQL
-    console.log("Recibido en el backend:", req.body);
-    
-    // Y siempre debes responderle a React para que no se quede esperando
-    res.status(200).json({ message: "Comando recibido correctamente" });
+app.get("/api/lecturas", (req, res) => {
+  console.log("Entró a /api/lecturas");
+
+  const querySQL = `
+    SELECT e.nombre_elevador, v.nombre_variable, l.valor_texto, l.valor_numerico, l.valor_booleano, l.fecha_hora
+    FROM lecturas_plc l
+    INNER JOIN elevadores e ON l.id_elevador = e.id_elevador
+    INNER JOIN variables_plc v ON l.id_variable = v.id_variable
+    WHERE l.id_lectura IN (SELECT MAX(id_lectura) FROM lecturas_plc GROUP BY id_elevador, id_variable)
+  `;
+
+  db.query(querySQL, (err, results) => {
+    if (err) {
+      console.error("Error en GET /api/lecturas:", err);
+      return res.status(500).send("Error al consultar la base de datos");
+    }
+    res.status(200).json(results);
+  });
+});
+
+app.post("/api/monitor", (req, res) => {
+  console.log("Entró a /api/monitor con los datos:", req.body);
+
+  const { elevadorId, variable, valorTexto, valorBool } = req.body;
+
+  const sqlQuery = `
+    UPDATE lecturas_plc 
+    SET valor_texto = ?, valor_booleano = ? 
+    WHERE id_elevador = ? 
+    AND id_variable = (SELECT id_variable FROM variables_plc WHERE nombre_variable = ?)
+  `;
+
+  const values = [
+    valorTexto !== undefined ? valorTexto : null, 
+    valorBool !== undefined ? valorBool : null, 
+    elevadorId, 
+    variable
+  ];
+
+  db.query(sqlQuery, values, (err, results) => {
+    if (err) {
+      console.error("Error en POST /api/monitor:", err);
+      return res.status(500).send("Error al actualizar la base de datos");
+    }
+    res.status(200).send("Comando ejecutado y base de datos actualizada");
+  });
 });
 
 app.get("/health", (req, res) => {
