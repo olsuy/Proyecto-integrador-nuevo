@@ -1,4 +1,3 @@
-// useMonitoring.js
 import { useState, useEffect } from 'react';
 
 const useMonitoring = () => {
@@ -44,13 +43,12 @@ const useMonitoring = () => {
     cargaInicial();
     const intervalId = setInterval(() => fetchDatabaseData(), 3000);
     return () => clearInterval(intervalId);
-    // eslint-disable-next-line
   }, [overrideA, overrideB]);
 
   const simularValoresDinamicos = () => {
     const pisos = [1, 2, 3, 4, 5, 6, 7];
     const estadosPuertas = ['cerradas', 'abiertas', 'abriendo', 'cerrando'];
-    
+
     const pisoA = overrideA.emergencia ? elevadorA.find(v => v.nombre_variable === 'posicion_actual')?.valor_numerico || 1 : pisos[Math.floor(Math.random() * pisos.length)];
     const pisoB = overrideB.emergencia ? elevadorB.find(v => v.nombre_variable === 'posicion_actual')?.valor_numerico || 1 : pisos[Math.floor(Math.random() * pisos.length)];
     const puertaA = overrideA.emergencia ? 'cerradas' : (overrideA.puertas !== null ? overrideA.puertas : estadosPuertas[Math.floor(Math.random() * estadosPuertas.length)]);
@@ -70,20 +68,20 @@ const useMonitoring = () => {
     ];
   };
 
-  const sendCommand = (elevadorId, accion, variable, nuevoValorTexto, nuevoValorBool) => {
+  const sendCommand = async (elevadorId, accion, variable, nuevoValorTexto, nuevoValorBool) => {
     const elevadorName = elevadorId === 1 ? "A" : "B";
     let alertTitle = "Command Executed";
     let alertMessage = "";
 
     if (accion === 'mantenimiento') {
-      alertMessage = nuevoValorBool === 1 
-        ? `Elevator ${elevadorName} has safely entered Maintenance Mode.` 
+      alertMessage = nuevoValorBool === 1
+        ? `Elevator ${elevadorName} has safely entered Maintenance Mode.`
         : `Elevator ${elevadorName} has exited Maintenance Mode and is back online.`;
     } else if (accion === 'puertas') {
       alertMessage = `Elevator ${elevadorName} doors have been forced OPEN.`;
     } else if (accion === 'emergencia') {
       alertTitle = nuevoValorBool ? "Emergency Alert" : "System Reset";
-      alertMessage = nuevoValorBool 
+      alertMessage = nuevoValorBool
         ? `EMERGENCY STOP activated for Elevator ${elevadorName}. System halted.`
         : `Emergency lock disabled. Elevator ${elevadorName} is returning to normal operations.`;
     }
@@ -93,12 +91,34 @@ const useMonitoring = () => {
     const sqlQuery = `UPDATE lecturas_plc \nSET valor_texto = ${nuevoValorTexto ? `'${nuevoValorTexto}'` : 'NULL'}, valor_booleano = ${nuevoValorBool !== null ? nuevoValorBool : 'NULL'} \nWHERE id_elevador = ${elevadorId} \nAND id_variable = (SELECT id_variable FROM variables_plc WHERE nombre_variable = '${variable}');`;
     console.log(`%c[SQL UPDATE EXECUTED]`, "color: #5bb7ff; font-weight: bold", `\n${sqlQuery}`);
 
-    if (elevadorId === 1) {
-      if (accion === 'emergencia') setOverrideA({ ...overrideA, emergencia: nuevoValorBool, puertas: 'cerradas' });
-      else setOverrideA({ ...overrideA, [accion]: accion === 'mantenimiento' ? nuevoValorBool : nuevoValorTexto });
-    } else {
-      if (accion === 'emergencia') setOverrideB({ ...overrideB, emergencia: nuevoValorBool, puertas: 'cerradas' });
-      else setOverrideB({ ...overrideB, [accion]: accion === 'mantenimiento' ? nuevoValorBool : nuevoValorTexto });
+    try {
+      const response = await fetch('/api/update-plc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          elevadorId: elevadorId,
+          variable: variable,
+          valorTexto: nuevoValorTexto,
+          valorBool: nuevoValorBool
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al actualizar la base de datos');
+      }
+
+      if (elevadorId === 1) {
+        if (accion === 'emergencia') setOverrideA({ ...overrideA, emergencia: nuevoValorBool, puertas: 'cerradas' });
+        else setOverrideA({ ...overrideA, [accion]: accion === 'mantenimiento' ? nuevoValorBool : nuevoValorTexto });
+      } else {
+        if (accion === 'emergencia') setOverrideB({ ...overrideB, emergencia: nuevoValorBool, puertas: 'cerradas' });
+        else setOverrideB({ ...overrideB, [accion]: accion === 'mantenimiento' ? nuevoValorBool : nuevoValorTexto });
+      }
+
+    } catch (err) {
+      setError(err.message);
     }
   };
 
