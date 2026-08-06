@@ -38,30 +38,6 @@ app.get("/", (req, res) => {
   res.status(200).send("Backend funcionando");
 });
 
-// En tu archivo de servidor backend (ej. server.js o index.js)
-
-// ¡Esta ruta debe coincidir EXACTAMENTE con lo que pusiste en el fetch de React!
-app.get("/api/lecturas", (req, res) => {
-  console.log("Entró a /api/lecturas");
-
-  const querySQL = `
-    SELECT e.nombre_elevador, v.nombre_variable, l.valor_texto, l.valor_numerico, l.valor_booleano, l.fecha_hora
-    FROM lecturas_plc l
-    INNER JOIN elevadores e ON l.id_elevador = e.id_elevador
-    INNER JOIN variables_plc v ON l.id_variable = v.id_variable
-    WHERE l.id_lectura IN (SELECT MAX(id_lectura) FROM lecturas_plc GROUP BY id_elevador, id_variable)
-  `;
-
-  db.query(querySQL, (err, results) => {
-    if (err) {
-      console.error("Error en GET /api/lecturas:", err);
-      return res.status(500).send("Error al consultar la base de datos");
-    }
-    res.status(200).json(results);
-  });
-});
-
-// Agregamos la palabra 'async' antes de (req, res)
 app.get("/api/lecturas", async (req, res) => {
   console.log("Entró a /api/lecturas");
 
@@ -74,8 +50,6 @@ app.get("/api/lecturas", async (req, res) => {
   `;
 
   try {
-    // En mysql2 con promesas, el resultado viene en un arreglo donde la posición 0 son las filas.
-    // Usamos destructuring [results] para extraer solo las filas.
     const [results] = await db.query(querySQL);
     res.status(200).json(results);
   } catch (err) {
@@ -104,7 +78,6 @@ app.post("/api/monitor", async (req, res) => {
   ];
 
   try {
-    // Ejecutamos el query usando await
     await db.query(sqlQuery, values);
     res.status(200).send("Comando ejecutado y base de datos actualizada");
   } catch (err) {
@@ -119,8 +92,6 @@ app.get("/health", (req, res) => {
 });
 
 // CONFIGURACION DE API PARA PINGDOM - RUTAS DEL BACKEND
-
-// Ruta para obtener el estado general (Online/Offline)
 app.get('/api/pingdom-status', async (req, res) => {
   try {
     const url = 'https://api.pingdom.com/api/3.1/checks';
@@ -140,13 +111,10 @@ app.get('/api/pingdom-status', async (req, res) => {
 app.get('/api/pingdom-uptime', async (req, res) => {
   try {
     const checkId = '14558878'; 
-    // Obtenemos los datos de los últimos 7 días (ajustado en segundos Timestamp UNIX)
     const toDate = Math.floor(Date.now() / 1000);
     const fromDate = toDate - (7 * 24 * 60 * 60); 
     
-    // API de resumen promedio (para % de uptime)
     const urlSummary = `https://api.pingdom.com/api/3.1/summary.average/${checkId}?includeuptime=true&from=${fromDate}&to=${toDate}`;
-    // API de salidas y logs (para la tabla)
     const urlOutage = `https://api.pingdom.com/api/3.1/summary.outage/${checkId}?from=${fromDate}&to=${toDate}`;
     
     const opciones = {
@@ -173,7 +141,6 @@ app.get('/api/pingdom-uptime', async (req, res) => {
   }
 });
 
-// Ruta para obtener la velocidad de la página (Page Speed)
 app.get('/api/pingdom-speed', async (req, res) => {
   try {
     const checkId = '14558878'; 
