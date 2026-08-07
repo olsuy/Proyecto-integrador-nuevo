@@ -24,8 +24,8 @@
 }
 
 .hleft {
-    width: 50%;
-    /* Se eliminó position: relative y top: -150px que rompían el layout */
+    flex: 1;
+  max-width: 600px;
 }
 
 .hsubtitle {
