@@ -1,11 +1,10 @@
 .statistics {
-    display: flex;
-    justify-content: center; /* Centra las tarjetas */
-    align-items: center;
-    flex-wrap: wrap;         /* Evita que se amontonen en pantallas pequeñas */
-    gap: 20px;               /* Da el espacio entre ellas */
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
+    /* Eliminamos los margin-top de -140px y -350px */
+    padding-top: 40px; /* Da un respiro entre el Hero y las tarjetas */
+    padding-bottom: 80px; /* Empuja el footer hacia abajo correctamente */
+    position: relative;
     z-index: 10;
 }
 
@@ -23,4 +22,8 @@
     justify-content: center; 
     gap: 20px;
     flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
 }
